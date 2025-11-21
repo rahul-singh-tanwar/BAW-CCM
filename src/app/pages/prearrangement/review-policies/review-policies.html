@@ -1,0 +1,78 @@
+<div class="table-container mat-elevation-z1">
+  <table mat-table [dataSource]="dataSource" class="full-width-table">
+
+    <!-- Select Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <mat-radio-button (change)="onSelectRow(row)"></mat-radio-button>
+      </td>
+    </ng-container>
+
+    <!-- Company Name -->
+    <ng-container matColumnDef="companyName">
+      <th mat-header-cell *matHeaderCellDef>Company Name</th>
+      <td mat-cell *matCellDef="let row">{{ row.companyName }}</td>
+    </ng-container>
+
+    <!-- Policy Type -->
+    <ng-container matColumnDef="policyType">
+      <th mat-header-cell *matHeaderCellDef>Policy Type</th>
+      <td mat-cell *matCellDef="let row">{{ row.policyType }}</td>
+    </ng-container>
+
+    <!-- Policy Number -->
+    <ng-container matColumnDef="policyNumber">
+      <th mat-header-cell *matHeaderCellDef>Policy Number</th>
+      <td mat-cell *matCellDef="let row">{{ row.policyNumber }}</td>
+    </ng-container>
+
+    <!-- Policy Status -->
+    <ng-container matColumnDef="policyStatus">
+      <th mat-header-cell *matHeaderCellDef>Policy Status</th>
+      <td mat-cell *matCellDef="let row">{{ row.policyStatus }}</td>
+    </ng-container>
+
+    <!-- Effective Date -->
+    <ng-container matColumnDef="effectiveDate">
+      <th mat-header-cell *matHeaderCellDef>Effective Date</th>
+      <td mat-cell *matCellDef="let row">{{ row.effectiveDate }}</td>
+    </ng-container>
+
+    <!-- Expiry Date -->
+    <ng-container matColumnDef="expiryDate">
+      <th mat-header-cell *matHeaderCellDef>Expiry Date</th>
+      <td mat-cell *matCellDef="let row">{{ row.expiryDate }}</td>
+    </ng-container>
+
+    <!-- First Use Date -->
+    <ng-container matColumnDef="firstUseDate">
+      <th mat-header-cell *matHeaderCellDef>First Use Date</th>
+      <td mat-cell *matCellDef="let row">{{ row.firstUseDate }}</td>
+    </ng-container>
+
+    <!-- Benefits Column -->
+    <ng-container matColumnDef="benefits">
+      <th mat-header-cell *matHeaderCellDef>Benefits</th>
+      <td mat-cell *matCellDef="let row">
+        <span *ngFor="let b of row.benefits; let i = index">
+          {{ b.name }}: {{ b.limit }}<span *ngIf="i < row.benefits.length - 1">, </span>
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- Header Row -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <!-- Data Rows -->
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="onSelectRow(row)"></tr>
+
+  </table>
+
+  <div class="table-footer">
+    <p>Showing {{ dataSource.length }} entries</p>
+    <div class="paginator">
+      <button mat-stroked-button>Previous</button>
+      <button mat-stroked-button>Next</button>
+    </div>
+  </div>
+</div>

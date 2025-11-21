@@ -1,0 +1,44 @@
+<!-- <button *ngIf="showForm" type="button" class="back-btn" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon> Go Back
+  </button> -->
+
+<div *ngIf="!showReview">
+<label for="chk1">
+  <input 
+    type="radio" 
+    id="chk1" 
+    name="department" 
+    value="IPD" 
+    (change)="onDepartmentChange($event)" 
+    checked
+  >
+  1. (IPD) In patient department
+</label>
+<br>
+
+<label for="chk2">
+  <input 
+    type="radio" 
+    id="chk2" 
+    name="department" 
+    value="OPD" 
+    (change)="onDepartmentChange($event)"
+  >
+  2. (OPD) Out patient department
+</label>
+<br>
+
+<!-- <button type="button" (click)="loadForm()">Show selected</button> -->
+</div> 
+<app-pre-arrangement-form 
+  *ngIf="showForm"
+  [department]="selectedDepartment" 
+  (formSubmitted)="onFormSubmit($event)">
+</app-pre-arrangement-form>
+<div *ngIf="showReview">
+  <button type="button" class="back-btn" (click)="loadForm()">
+    <mat-icon>arrow_back</mat-icon> Go Back
+  </button>
+  <app-review-policies></app-review-policies>
+</div>
+

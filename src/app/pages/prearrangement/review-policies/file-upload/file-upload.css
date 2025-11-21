@@ -1,0 +1,42 @@
+.upload-section {
+  margin-bottom: 16px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.file-info {
+  font-size: 14px;
+}
+
+.status-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Loader animation */
+.loading {
+  animation: spin 1s linear infinite;
+  color: #1976d2;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Success tick */
+.success {
+  color: #4caf50;
+  font-size: 22px;
+}

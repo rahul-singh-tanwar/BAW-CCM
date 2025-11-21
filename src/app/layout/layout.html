@@ -1,0 +1,58 @@
+<div class="app-container">
+  <header class="top-header">
+    <div class="header-left">
+      <button mat-icon-button class="menu-btn" (click)="toggleNavbar()">
+        <mat-icon>menu</mat-icon>  
+      </button>
+      
+      <div class="logo-section">
+        <div class="allianz-icon">
+          <span class="allianz-text">CCM Portal BAW</span>
+          <img src="/allianz-OG-logo.svg" alt="Allianz Logo" class="allianz-logo-img">
+        </div>
+      </div>
+    </div>
+
+    <div class="header-center">
+      <h1 class="page-title">{{ pageTitle }}</h1>
+    </div>
+
+    <div class="header-right">
+      <div class="search-box">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input type="text" placeholder="Search" class="search-input">
+      </div>
+
+      <button mat-icon-button class="notification-btn">
+        <mat-icon>notifications_none</mat-icon>
+        <!-- <span class="notification-badge">1</span> -->
+      </button>
+
+      <div class="user-section">
+        <span class="user-name">{{ userName }}</span>
+        <div class="user-avatar" [matMenuTriggerFor]="userMenu">{{ userInitials }}</div>
+      </div>
+    </div>
+  </header>
+
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+
+  <div class="main-layout">
+    <mat-sidenav-container class="sidenav-container">
+      <mat-sidenav mode="side" [opened]="isNavbarOpen" class="left-sidenav">
+        <app-left-nav (titleChange)="setPageTitle($event)"></app-left-nav>
+      </mat-sidenav>
+
+      <mat-sidenav-content class="main-content">
+        <div class="content-area">
+          <router-outlet></router-outlet>
+        </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+{
+  "name": "Allianz Cost Containment System",
+  "short_name": "Allianz CCS",
+  "description": "Allianz Cost Containment System Dashboard",
+  "icons": [
+    {
+      "src": "/favicon-allianz.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#003680",
+  "background_color": "#ffffff"
+}

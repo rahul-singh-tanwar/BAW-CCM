@@ -1,0 +1,81 @@
+<div class="prearrangement-form">
+  <!-- Go Back Button -->
+  <!-- <button type="button" class="back-btn" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon> Go Back
+  </button> -->
+
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+
+    <!-- Customer Information -->
+    <h2>Customer Information</h2>
+    <div class="form-row">
+      <div class="form-group half">
+        <label>National ID:</label>
+        <input type="text" formControlName="nationalId" placeholder="Enter National ID">
+      </div>
+
+      <div class="form-group half">
+        <label>Policy Number:</label>
+        <input type="text" formControlName="policyNumber" placeholder="Enter Policy Number">
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Visit Information -->
+    <h2>Visit Information</h2>
+
+    <div class="form-row">
+      <div class="form-group half">
+        <label>*Visit Type:</label>
+        <select formControlName="visitType">
+          <option value="">Select Visit Type</option>
+          <option value="Sickness">Sickness</option>
+          <option value="Accident">Accident</option>
+        </select>
+      </div>
+
+      <div class="form-group half">
+        <label>*Reservation Type:</label>
+        <select formControlName="reservationType">
+          <option value="">Select Reservation Type</option>
+          <option value="Pre-arrangement">Pre-arrangement</option>
+          <option value="Pre-auth">Pre-auth</option>
+        </select>
+      </div>
+    </div>
+
+    <!--
+      <div class="form-group">
+        <label>*Hospital Name:</label>
+        <input type="text" formControlName="hospitalName" placeholder="Enter Hospital Name">
+      </div>
+    -->
+
+    <div class="form-row">
+      <div class="form-group half">
+        <label>*ICD10:</label>
+        <input type="text" formControlName="icd10" placeholder="Enter ICD10 Code">
+      </div>
+
+      <div class="form-group half">
+        <label>ICD9:</label>
+        <input type="text" formControlName="icd9" placeholder="Enter ICD9 Code">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group half">
+        <label>*Admission Date:</label>
+        <input type="date" formControlName="admissionDate">
+      </div>
+
+      <div class="form-group half">
+        <label>*Accident Date:</label>
+        <input type="date" formControlName="accidentDate">
+      </div>
+    </div>
+
+    <button type="submit" mat-raised-button color="primary">Search</button>
+  </form>
+</div>

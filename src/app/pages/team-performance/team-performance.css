@@ -1,0 +1,12 @@
+/* iframe-view.component.css */
+.iframe-container {
+  width: 100%;
+  height: calc(100vh - 64px); /* adjust for toolbar height */
+  overflow: hidden;
+}
+
+iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
+}

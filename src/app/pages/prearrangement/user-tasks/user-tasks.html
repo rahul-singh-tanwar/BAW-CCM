@@ -1,0 +1,152 @@
+<div class="user-tasks-container">
+    <!-- Toolbar -->
+    <mat-toolbar color="primary" class="toolbar">
+        <span>🧾 User Tasks</span>
+        <span class="spacer"></span>
+        <!-- <button mat-raised-button color="accent" (click)="refreshTasks()">
+            Refresh
+        </button> -->
+        <!--     <button mat-raised-button color="primary" (click)="goToUploadFiles()">
+            <mat-icon>cloud_upload</mat-icon>
+            Upload Documents
+        </button>-->
+    </mat-toolbar>
+
+    <!-- Filter panel -->
+    <!--
+    <mat-card class="filter-card">
+        <mat-card-title>🔍 Filters</mat-card-title>
+        <mat-card-content>
+            <form class="filter-form">
+                <mat-form-field appearance="outline">
+                    <mat-label>State</mat-label>
+                    <mat-select [(ngModel)]="filters.state" name="state">
+                        <mat-option *ngFor="let s of possibleStates" [value]="s">
+                            {{ s }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Process Name</mat-label>
+                    <mat-select [(ngModel)]="filters.processName" name="processName">
+                        <mat-option value="">All</mat-option>
+                        <mat-option *ngFor="let p of processNames" [value]="p">
+                            {{ p }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Priority</mat-label>
+                    <mat-select [(ngModel)]="filters.priority" name="priority">
+                        <mat-option value="">All</mat-option>
+                        <mat-option value="10">Low</mat-option>
+                        <mat-option value="50">Normal</mat-option>
+                        <mat-option value="100">High</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Tenant</mat-label>
+                    <input matInput [(ngModel)]="filters.tenantId" name="tenantId" />
+                </mat-form-field>
+
+                <button mat-flat-button color="primary" (click)="applyFilters()">
+                    Apply Filters
+                </button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+-->
+    <!-- Tasks Table -->
+    <div class="table-wrapper" *ngIf="dataSource">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 task-table">
+
+            <!-- UserTaskKey column (clickable) -->
+            <!-- Task Key (clickable) -->
+            <ng-container matColumnDef="userTaskKey">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Task Key</th>
+                <td mat-cell *matCellDef="let task">
+                    <a href="#" (click)="selectTask(task, $event)">{{ task.userTaskKey }}</a>
+                </td>
+            </ng-container>
+            <!-- Process Name -->
+            <!--    <ng-container matColumnDef="processName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Process Name
+                </th>
+                <td mat-cell *matCellDef="let task">{{ task.processName }}</td>
+            </ng-container> -->
+
+            <!-- Task Name -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Task Name</th>
+                <td mat-cell *matCellDef="let task">{{ task.name }}</td>
+            </ng-container>
+
+            <!-- State -->
+            <ng-container matColumnDef="state">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Task State</th>
+                <td mat-cell *matCellDef="let task">
+                    <!-- <mat-chip [ngClass]="getStateClass(task.state)">
+                        {{ task.state }}
+                    </mat-chip> -->
+                    {{ task.state }}
+                </td>
+            </ng-container>
+
+            <!-- Assignee -->
+            <ng-container matColumnDef="assignee">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Assignee</th>
+                <td mat-cell *matCellDef="let task">{{ task.assignee }}</td>
+            </ng-container>
+
+            <!-- Tenant -->
+            <!--    <ng-container matColumnDef="tenantId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Tenant</th>
+                <td mat-cell *matCellDef="let task">{{ task.tenantId }}</td>
+            </ng-container>
+        -->
+            <!-- Priority -->
+            <ng-container matColumnDef="priority">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Task Priority</th>
+                <td mat-cell *matCellDef="let task">{{ task.priority }}</td>
+
+            </ng-container>
+
+            <!-- Creation Date -->
+            <ng-container matColumnDef="creationDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Task Created Date</th>
+                <td mat-cell *matCellDef="let task">
+                    {{ task.creationDate | date: 'short' }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="preArrangNumber">
+                <th mat-header-cell *matHeaderCellDef> Pre-arrangement Number </th>
+                <td mat-cell *matCellDef="let task">
+                    {{ task.preArrangNumber || '—' }}
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons>
+        </mat-paginator>
+    </div>
+
+    <!-- ✅ Existing content above remains same -->
+
+    <!-- Show selected task form -->
+    <!-- Form Section -->
+    <div *ngIf="selectedTask" class="form-section">
+        <!-- <app-camunda-form [userTaskKey]="selectedTask.userTaskKey"></app-camunda-form> -->
+
+    </div>
+
+
+
+</div>

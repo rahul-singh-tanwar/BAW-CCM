@@ -1,0 +1,152 @@
+<h2 mat-dialog-title>Company — {{ data.companyName }}</h2>
+
+<div mat-dialog-content>
+  <div class="policy-info">
+    <p><strong>Policy Number:</strong> {{ data.policyNumber }}</p>
+    <p><strong>Policy Type:</strong> {{ data.policyType }}</p>
+    <p><strong>Effective Date:</strong> {{ data.effectiveDate }}</p>
+    <p><strong>Expiry Date:</strong> {{ data.expiryDate }}</p>
+  </div>
+
+  <h3>Benefits</h3>
+  <div class="table-wrapper">
+    <table class="inner-table">
+      <thead>
+        <tr>
+          <th>Benefit Name</th>
+          <th>Limit</th>
+          <th>Remarks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let b of data.benefits">
+          <td>{{ b.name }}</td>
+          <td>{{ b.limit }}</td>
+          <td>{{ b.remarks }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr />
+
+  <h3>Additional Details</h3>
+  <form #detailsForm="ngForm">
+    <div class="details-grid"
+      style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: start;">
+      <mat-form-field appearance="fill">
+        <mat-label>Physician Licence Number</mat-label>
+        <input matInput name="physicianLicense" [(ngModel)]="physicianLicense" required>
+        <mat-error *ngIf="detailsForm.submitted && !physicianLicense">
+          Physician Licence Number is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="simb-field">
+        <mat-label>SIMB Amount</mat-label>
+        <span matPrefix class="baht-prefix">฿&nbsp;</span>
+        <input matInput name="simbAmount" [(ngModel)]="simbAmount" type="number" required />
+        <mat-error *ngIf="detailsForm.submitted && !simbAmount">
+          SIMB Amount is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Average Cost</mat-label>
+        <input matInput name="averageCost" [(ngModel)]="averageCost" type="number" required autocomplete="off"
+          inputmode="decimal" />
+        <mat-error *ngIf="detailsForm.submitted && !averageCost">
+          Average Cost is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Length Of Stay</mat-label>
+        <input matInput name="lengthOfStay" [(ngModel)]="lengthOfStay" type="number" required autocomplete="off"
+          inputmode="numeric" />
+        <mat-error *ngIf="detailsForm.submitted && !lengthOfStay">
+          Length Of Stay is required
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+    <div style="margin-top: 16px;">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Disease Details</mat-label>
+        <textarea matInput name="diseaseDetails" [(ngModel)]="diseaseDetails" required></textarea>
+        <mat-error *ngIf="detailsForm.submitted && !diseaseDetails">
+          Diagnosis Description / Clinical Remark (optional)
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <!-- PACKAGE SELECTION UI -->
+    <div [ngClass]="{'package-error': isSubmitted && !selectedPackage}" class="package-selector">
+
+      <label class="package-label">
+        Select Package<span> *</span>
+      </label>
+
+      <mat-radio-group [(ngModel)]="selectedPackage" name="selectedPackage" required #packageCtrl="ngModel">
+        <mat-radio-button *ngFor="let pkg of packageList" [value]="pkg" class="package-radio">
+          {{ pkg.Name }}
+        </mat-radio-button>
+      </mat-radio-group>
+
+      <div *ngIf="isSubmitted && !selectedPackage" class="error-text">
+        Please select a package
+      </div>
+    </div>
+
+
+    <!-- === PACKAGE DETAILS PANEL (Shown only when package selected) === -->
+    <div *ngIf="selectedPackage" class="package-details-card">
+
+      <div class="details-header">
+        <strong>Package: {{ selectedPackage.Name }}</strong>
+      </div>
+
+      <div class="details-body">
+
+        <div class="section-title">Why recommended:</div>
+
+        <ul class="bullet-list">
+          <li *ngIf="selectedPackage.icdMatch">ICD10 {{ selectedPackage.icdMatch }} matches package condition</li>
+          <li *ngIf="selectedPackage.network">Contracted with {{ selectedPackage.network }}</li>
+          <li *ngIf="selectedPackage.simbMatch">SIMB item match {{ selectedPackage.simbMatch }}%</li>
+        </ul>
+
+        <div class="divider"></div>
+
+        <div class="price-row">
+          <span>Package Price:</span>
+          <strong>THB {{ selectedPackage.packagePrice }}</strong>
+        </div>
+
+        <div class="price-row">
+          <span>Standard Tariff:</span>
+          <span>THB {{ selectedPackage.standardTariff }}</span>
+        </div>
+
+        <div class="price-row savings">
+          <span>Savings:</span>
+          <span>THB {{ selectedPackage.standardTariff - selectedPackage.packagePrice }}</span>
+        </div>
+
+      </div>
+    </div>
+
+  </form>
+  <hr />
+
+  <h3>Upload Documents</h3>
+  <app-file-upload #labFiles title="Lab Result Documents"></app-file-upload>
+  <app-file-upload #formFiles title="Form Documents"></app-file-upload>
+  <app-file-upload #otherFiles title="Other Documents"></app-file-upload>
+
+
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-stroked-button type="button" (click)="close()">Close</button>
+  <button mat-raised-button color="primary" (click)="submit(detailsForm)">Submit</button>
+</div>

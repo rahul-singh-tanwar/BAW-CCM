@@ -1,0 +1,48 @@
+/* :host {
+  display: block;
+  height: 100vh;
+}
+
+.app-container {
+  height: 100vh;
+}
+
+.left-sidenav {
+  width: 250px;
+  background: #003781;
+  color: #fff;
+  border-radius: 0;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.toolbar {
+    border-bottom: solid 1px #ddd;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.title {
+  flex: 1;
+  text-align: left;
+  font-weight: 500;
+  color: #080808;
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.main-content {
+  padding: 1rem;
+  background: #fafafa;
+  height: calc(100vh - 64px); subtract toolbar height
+  overflow-y: auto;
+} */

@@ -1,0 +1,50 @@
+<nav class="left-nav">
+  <div class="nav-items">
+    <a class="nav-item" [class.active]="isActive('/user-tasks')" (click)="navigateTo('/user-tasks')">
+      <div class="nav-icon">
+        <mat-icon>pie_chart</mat-icon>
+      </div>
+      <span class="nav-text">Work</span>
+    </a>
+
+    <a class="nav-item" [class.active]="isActive('/process')" (click)="navigateTo('/process')">
+      <div class="nav-icon">
+        <mat-icon>lightbulb</mat-icon>
+      </div>
+      <span class="nav-text">Process</span>
+    </a>
+
+    <a class="nav-item" [class.active]="isActive('/process-performance')" (click)="navigateTo('/process-performance')">
+      <div class="nav-icon">
+        <mat-icon>confirmation_number</mat-icon>
+      </div>
+      <span class="nav-text">Process Performance</span>
+    </a>
+
+    <a class="nav-item" [class.active]="isActive('/team-performance')" (click)="navigateTo('/team-performance')">
+      <div class="nav-icon">
+        <mat-icon>groups</mat-icon>
+      </div>
+      <span class="nav-text">Task Performance</span>
+    </a>
+
+    <a class="nav-item" *ngIf="auth.canAccess({ users: ['medstaff1', 'medstaff2']})" [class.active]="isActive('/ccm-work-queue')" (click)="navigateTo('/ccm-work-queue')">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+          <circle cx="12" cy="7" r="3"/>
+          <path d="M12 14c-4 0-7 2-7 4v2h14v-2c0-2-3-4-7-4z"/>
+          <!-- <polygon points="12,10 11,12 11,16 12,17 13,16 13,12" fill="currentColor"/> -->
+          <path d="M10.5 11.5 L12 10 L13.5 11.5" stroke="currentColor" stroke-width="0.5" fill="none"/>
+        </svg>
+      </div>
+      <span class="nav-text">CCM Work Queue</span>
+    </a>
+
+    <a class="nav-item" *ngIf="auth.canAccess({ users: ['HospNetTeamMember1', 'HospNetTeamMember2']})" [class.active]="isActive('/prearrangement')" (click)="navigateTo('/prearrangement')">
+      <div class="nav-icon">
+        <mat-icon>description</mat-icon>
+      </div>
+      <span class="nav-text">Launch Pre-arrangement</span>
+    </a>
+  </div>
+</nav>

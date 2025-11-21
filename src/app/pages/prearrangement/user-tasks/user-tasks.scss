@@ -1,0 +1,89 @@
+.user-tasks-container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.filter-card {
+  margin-top: 12px;
+}
+
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+.table-wrapper {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.task-table {
+  width: 100%;
+  border-radius: 8px;
+  background: #fff;
+}
+
+mat-header-cell,
+mat-cell {
+  padding: 10px 14px;
+}
+
+mat-paginator {
+  margin-top: 8px;
+}
+
+.no-tasks {
+  text-align: center;
+  padding: 24px;
+  background: #fafafa;
+  color: #666;
+  font-size: 14px;
+}
+
+mat-chip {
+  font-weight: 600;
+  color: white;
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+
+.chip-created {
+  background-color: #1976d2;
+}
+
+.chip-completed {
+  background-color: #388e3c;
+}
+
+.chip-failed {
+  background-color: #d32f2f;
+}
+
+.chip-canceled {
+  background-color: #757575;
+}
+
+.chip-default {
+  background-color: #9e9e9e;
+}
+
+.form-section {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
+}

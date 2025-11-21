@@ -1,0 +1,30 @@
+<div class="upload-section">
+  <h4>{{ title }} ({{ files.length }})</h4>
+
+  <input type="file" multiple (change)="onFileSelected($event)">
+
+  <ul *ngIf="files.length > 0">
+    <li *ngFor="let item of files; let i = index">
+      
+      <span class="file-info">
+        {{ item.file.name }}
+      </span>
+
+      <span class="status-icons">
+
+        <!-- Loader -->
+        <mat-icon class="loading" *ngIf="item.uploading">autorenew</mat-icon>
+
+        <!-- Success Tick -->
+        <mat-icon class="success" *ngIf="item.uploaded && !item.uploading">check_circle</mat-icon>
+
+        <!-- Delete file -->
+        <button mat-icon-button color="warn" (click)="removeFile(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+      </span>
+
+    </li>
+  </ul>
+</div>

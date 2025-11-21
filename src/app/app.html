@@ -1,0 +1,37 @@
+<!-- <app-login *ngIf="!showLayout" (loginSuccess)="onUserLoggedIn($event)"></app-login>
+<ng-container *ngIf="checkLoggedIn()">
+<mat-sidenav-container class="app-container">
+
+  <mat-sidenav #leftSidenav mode="side" opened class="left-sidenav">
+      <button mat-icon-button style="color:white;" >
+          <mat-icon style="font-size: 32px; width: 32px; height: 32px;">space_dashboard</mat-icon>
+        </button>
+    <app-left-nav></app-left-nav>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <mat-toolbar color="primary" class="toolbar">
+
+      <span class="title">Pre-arrangement process</span>
+
+      <div class="toolbar-right">
+        <button mat-icon-button class="lang-btn">
+          <mat-icon>language</mat-icon>
+        </button>
+
+        <button mat-icon-button class="profile-btn">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+      </div>
+    </mat-toolbar>
+
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+</ng-container>  -->
+
+<router-outlet></router-outlet>

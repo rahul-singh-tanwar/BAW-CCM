@@ -1,0 +1,12 @@
+<div class="iframe-container" *ngIf="iframeUrl; else noUrl">
+  <iframe
+    [src]="iframeUrl | safeUrl"
+    frameborder="0"
+    style="width: 100%; height: 100%; overflow: scroll;"
+    allowtransparency="true"
+  ></iframe>
+</div>
+
+<ng-template #noUrl>
+  <p>No iframe loaded yet. Select a page from the sidebar.</p>
+</ng-template>
