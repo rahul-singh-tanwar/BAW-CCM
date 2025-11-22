@@ -72,8 +72,8 @@
     </div>
     <div style="margin-top: 16px;">
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Disease Details</mat-label>
-        <textarea matInput name="diseaseDetails" [(ngModel)]="diseaseDetails" required></textarea>
+        <mat-label>Diagnosis Description / Clinical Remark (optional)</mat-label>
+        <textarea matInput name="diseaseDetails" [(ngModel)]="diseaseDetails" ></textarea>
         <mat-error *ngIf="detailsForm.submitted && !diseaseDetails">
           Diagnosis Description / Clinical Remark (optional)
         </mat-error>

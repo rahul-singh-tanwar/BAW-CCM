@@ -14,14 +14,14 @@
       <span class="nav-text">Process</span>
     </a>
 
-    <a class="nav-item" [class.active]="isActive('/process-performance')" (click)="navigateTo('/process-performance')">
+    <a class="nav-item" *ngIf="auth.canAccess({ users: ['medstaff1', 'medstaff2']})" [class.active]="isActive('/process-performance')" (click)="navigateTo('/process-performance')">
       <div class="nav-icon">
         <mat-icon>confirmation_number</mat-icon>
       </div>
       <span class="nav-text">Process Performance</span>
     </a>
 
-    <a class="nav-item" [class.active]="isActive('/team-performance')" (click)="navigateTo('/team-performance')">
+    <a class="nav-item" *ngIf="auth.canAccess({ users: ['medstaff1', 'medstaff2']})" [class.active]="isActive('/team-performance')" (click)="navigateTo('/team-performance')">
       <div class="nav-icon">
         <mat-icon>groups</mat-icon>
       </div>
