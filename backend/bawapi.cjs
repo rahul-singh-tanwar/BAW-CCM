@@ -7,9 +7,32 @@ const https = require('https');
  
 const app = express();
 const port = 3000;
+const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
+const { v4: uuidv4 } = require("uuid");
+const uploadFolder = path.join(__dirname, "uploads");
  
+app.use('/uploads', express.static(uploadFolder)); 
 app.use(cors());
 app.use(express.json());
+
+
+ 
+ 
+if (!fs.existsSync(uploadFolder)) {
+  fs.mkdirSync(uploadFolder);
+}
+ 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, uploadFolder),
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    cb(null, `${uuidv4()}${ext}`);
+  },
+});
+ 
+const upload = multer({ storage });
  
 const BPM_BASE_URL = 'https://localhost:9443';
  
@@ -59,7 +82,27 @@ function proxyPost(req, res, url) {
             res.status(e.response?.status || 500).json({ error: e.message })
         );
 }
+ //Upload Files
+app.post('/upload', upload.array('files'), (req, res) => {
+  if (!req.files || req.files.length === 0) {
+    return res.status(400).json({ message: 'No files uploaded' });
+  }
  
+  // Return metadata for uploaded files
+  const uploadedFiles = req.files.map((file) => ({
+    originalName: file.originalname,
+    fileName: file.filename,
+    mimeType: file.mimetype,
+    size: file.size,
+    url: `/uploads/${file.filename}`, // endpoint to download later
+  }));
+ 
+  res.json({
+    message: 'Files uploaded successfully',
+    files: uploadedFiles,
+  });
+});
+
 // ===============================
 // 🔹 FIXED: BPM LOGIN ROUTE
 // ===============================

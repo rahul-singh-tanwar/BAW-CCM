@@ -13,9 +13,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { GopDocument } from '../../gop-document/gop-document';
 // import { CamundaFormComponent } from '../../../services/camunda-form.component';
 import { Router } from '@angular/router';
 import { CamundaService } from '../../../../utils/camunda.service';
+import * as CcmWorkDTO from './ccm-workDTO';
+import { CcmWorkQueue } from './ccm-work-queue/ccm-work-queue';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-user-tasks',
@@ -36,6 +40,8 @@ import { CamundaService } from '../../../../utils/camunda.service';
         MatInputModule,
         MatChipsModule,
         MatIconModule,
+        CcmWorkQueue,
+        MatDialogModule
     ],
     templateUrl: './user-tasks.html',
     styleUrls: ['./user-tasks.scss'],
@@ -83,7 +89,8 @@ export class UserTasksComponent implements OnInit, OnDestroy {
         private http: HttpClient,
         private fb: FormBuilder,
         private router: Router,
-        private camundaService: CamundaService
+        private camundaService: CamundaService,
+        public dialog: MatDialog
     ) {
         this.taskForm = this.fb.group({});
     }
@@ -97,10 +104,7 @@ export class UserTasksComponent implements OnInit, OnDestroy {
         if (this.tasksSubscription) this.tasksSubscription.unsubscribe();
     }
 
-    /** ---------------------------
-     *   🟦 WebSocket Setup
-     * --------------------------- */
-    initializeWebSocket() {
+     initializeWebSocket() {
         this.camundaService.getUserTasks().subscribe({
             next: (response) => {
                 console.log('✅ Fetched tasks:', this.tasks);
@@ -144,6 +148,143 @@ export class UserTasksComponent implements OnInit, OnDestroy {
 
 
     }
+
+    openGopDocument(taskVariables: any[]) {
+        const varsMap = this.variablesToMap(taskVariables);
+        console.log("Mapped Variables for GOP Document:", varsMap);
+
+        const formatDate = (value: any): string => {
+            if (!value) return '';
+            const d = new Date(value);
+            if (isNaN(d.getTime())) return '';
+            const day = String(d.getDate()).padStart(2, '0');
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const year = d.getFullYear();
+            return `${day}-${month}-${year}`;
+        };
+
+        const gopData: CcmWorkDTO.GOPdata = {
+            userTaskKey: this.selectedTask.userTaskKey || '',
+            nationalId: varsMap.customerInfo.nationalId || '',
+            preArrangementNumber: varsMap.preArrangementNo || '',
+            gopNumber: varsMap.gopNumber || 'GOP-' + Date.now(),
+            policyNumber: varsMap.selectedPolicyNumber || '',
+            memberName: varsMap.memberName || 'Rahul Singh Tanwar',
+            coverageType: varsMap.coverageType || 'Inpatient',
+            approvedAmount: varsMap.simbAmount || '0',
+            approvalDate: formatDate(varsMap.approvalDate || Date.now()),
+            approvalValidTill: formatDate(varsMap.approvalValidTill || (Date.now() + 30 * 24 * 60 * 60 * 1000 * 11)),
+            remarks: varsMap.remarks || 'Approved as per inpatient benefit rules'
+        };
+
+     
+        const dialogRef = this.dialog.open(GopDocument, {
+            width: "80vw",
+            height: "80vh",
+            maxHeight: "100vh",
+            maxWidth: '90vw',
+            panelClass: "gop-document-dialog",
+            data: gopData
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log("GOP Document dialog closed:", result);
+        });
+    }
+
+
+    openCcmWorkQueue(taskVariables: any[]) {
+        // Convert variables array into a key-value map
+        const varsMap = this.variablesToMap(taskVariables);
+        console.log("Mapped Variables:", varsMap);
+
+        // Extract eligibility results safely
+        const eligibilityResults = varsMap.eligibilityResults || {};
+
+        // Build eligiblePolicies
+        const eligiblePolicies = [{
+            companyName: eligibilityResults.companyName,
+            policyType: eligibilityResults.policyType,
+            policyNumber: eligibilityResults.policyNumber,
+            effectiveDate: eligibilityResults.effectiveDate,
+            expiryDate: eligibilityResults.expiryDate
+        }];
+
+        // Build benefits structure
+        const selectedPolicyNumber = varsMap.selectedPolicyNumber;
+
+        const benefits = eligibilityResults.benefits.items.map((b: any) => ({
+            name: b.name,
+            limit: b.limit,
+            remarks: b.remarks,
+        }));
+ 
+
+        // Prepare the dialog data to match CcmWorkDTO.ReadonlyPopupData
+        const dialogData: CcmWorkDTO.ReadonlyPopupData = {
+            userTaskKey: this.selectedTask.userTaskKey || '',
+            eligiblePolicies,
+            benefits,
+
+            uploadedDocuments: {
+                formFiles: varsMap.uploadFiles?.formFiles || [],
+                labFiles: varsMap.uploadFiles?.labFiles || [],
+                otherFiles: varsMap.uploadFiles?.otherFiles || []
+            },
+
+            customerInfo: {
+                nationalId: varsMap.customerInfo?.nationalId || "",
+                policyNumber: varsMap.customerInfo?.policyNumber || ""
+            },
+
+            visitInfo: {
+                visitType: varsMap.visitInfo?.visitType || "",
+                reservationType: varsMap.visitInfo?.reservationType || "",
+                ICD10: varsMap.visitInfo?.ICD10 || "",
+                ICD9: varsMap.visitInfo?.ICD9 || "",
+                AdmissionDate: varsMap.visitInfo?.admissionDate || "",
+                AccidentDate: varsMap.visitInfo?.accidentDate || ""
+            },
+
+            prearengment: varsMap.preArrangNumber || "",
+            physicianLicenceNumber:
+                varsMap.physicianNumber || varsMap.physicianLicense || "",
+            silbmAmount: varsMap.simbAmount || "",
+            lengthOfStay: varsMap.lengthOfStay || 0,
+            averageCost: varsMap.averageCost || 0,
+            diseaseDetails: varsMap.diseaseDetails || "",
+            selectedPackage: varsMap.selectedPackage || undefined
+        };
+
+        const dialogRef = this.dialog.open(CcmWorkQueue, {
+            width: "80vw",        // adjust as needed
+            height: "80vh",      // full height only
+            maxHeight: "100vh",
+            maxWidth: '90vw',
+            panelClass: "workqueue-dialog",
+            data: dialogData
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log("Dialog closed:", result);
+        });
+    }
+
+    // Converts variables [{name: '', value: ''}] → { name: value }
+    private variablesToMap(variables: any[]): any {
+        console.log("Converting variables array to map:", variables);
+        const map: any = {};
+
+        variables.forEach((v) => {
+            map[v.name] = v.data;
+        });
+
+        return map;
+    }
+
+
+
+   
 
     async refreshTasks() {
         const username = localStorage.getItem('username') ?? 'demo';
@@ -208,46 +349,35 @@ export class UserTasksComponent implements OnInit, OnDestroy {
         event.preventDefault();
         this.selectedTask = task;
 
-        this.camundaService.getUserTaskVariables(this.selectedTask.userTaskKey)
+        this.camundaService.getUserTaskData(this.selectedTask.userTaskKey)
             .subscribe({
                 next: (response: any) => {
-                    console.log('✅ Fetched task variables:', response);
-                    // const variables: any = {};
-                    // if (response.items?.length) {
-                    //     response.items.forEach((v: any) => (variables[v.name] = v.value));
-                    // }
-                    // this.taskVariables = variables;
-                    // this.taskForm = this.buildFormGroup(this.taskVariables);
+
+                   if (task.name === 'CCM Work Queue Task') {
+                        this.openCcmWorkQueue(response.output);
+                        return;
+                   }
+                    else {
+                        this.openGopDocument(response.output);
+                        return;
+                        // this.dialog.open(GopDocument, {
+                        //     width: '90vw',
+                        //     height: '90vh',
+                        //     maxWidth: '90vw',
+                        //     maxHeight: '90vh',
+                        //     panelClass: "workqueue-dialog",
+                        //     data: { task: this.selectedTask }
+                        // });
+                    }
                 },
                 error: (err) => console.error('❌ Failed to fetch task variables', err),
             });
     }
 
-    /** Build dynamic form */
-    buildFormGroup(obj: any): FormGroup {
-        const group: any = {};
-        Object.keys(obj).forEach((key) => {
-            const value = obj[key];
-            if (Array.isArray(value)) {
-                group[key] = this.fb.array(
-                    value.map((v) => (this.isObject(v) ? this.buildFormGroup(v) : new FormControl(v)))
-                );
-            } else if (this.isObject(value)) {
-                group[key] = this.buildFormGroup(value);
-            } else {
-                group[key] = new FormControl(value);
-            }
-        });
-        return this.fb.group(group);
-    }
+    // openccmWorkQueue() {
+    //     this.router.navigate(['/ccm-work-queue']);
+    // }
 
-    isObject(value: any): boolean {
-        return value && typeof value === 'object' && !Array.isArray(value);
-    }
-
-    taskFormKeys(): string[] {
-        return Object.keys(this.taskForm.controls);
-    }
 
     /** ---------------------------
      *   🟦 Table Filtering

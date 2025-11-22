@@ -41,7 +41,7 @@ export class CamundaService {
 
     files.forEach(file => formData.append('files', file));
 
-    return this.http.post(`${this.baseUrl}/upload`, formData);
+    return this.http.post(`http://localhost:3000/upload`, formData);
   }
 
   searchUserTasks(): Observable<any> {
@@ -69,9 +69,17 @@ export class CamundaService {
     );
   }
 
-  getUserTaskVariables(userTaskKey: string): Observable<any> {
+
+   
+    getUserTaskVariables(userTaskKey: string): Observable<any> {
     return this.http.get(
       `${this.baseUrl}/user-tasks/${userTaskKey}/variables`,
+      this.getAuthOptions()
+    );
+  }
+  getUserTaskData(userTaskKey: string): Observable<any> {
+    return this.http.get(
+      `${this.baseUrl}/user-tasks/${userTaskKey}?optional_parts=data`,
       this.getAuthOptions()
     );
   }

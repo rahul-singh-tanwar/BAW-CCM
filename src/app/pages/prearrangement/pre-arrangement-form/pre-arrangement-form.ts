@@ -30,12 +30,12 @@ export class PreArrangementForm implements OnInit {
     private camundaService: CamundaService
   ) {
     this.form = this.fb.group({
-      nationalId: [''],
+      nationalId: ['1234567890123'],
       policyNumber: [''],
-      visitType: ['', Validators.required],
+      visitType: ['Sickness', Validators.required],
       reservationType: ['', Validators.required],
      // hospitalName: ['', Validators.required],
-      icd10: ['', Validators.required],
+      icd10: ['A22', Validators.required],
       icd9: [''],
       admissionDate: ['', Validators.required],
       accidentDate: ['', Validators.required],
@@ -95,7 +95,7 @@ export class PreArrangementForm implements OnInit {
             this.userTaskKey = res.user_task_instances[0].id.split('.')[1];
             const variables = {
               customerInfo: {
-                nationalID: fv.nationalId || '',
+                nationalId: fv.nationalId || '',
                 policyNumber: fv.policyNumber || '',
               },
               visitInfo: {

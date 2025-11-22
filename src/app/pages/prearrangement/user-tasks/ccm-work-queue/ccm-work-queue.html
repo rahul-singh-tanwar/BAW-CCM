@@ -1,0 +1,207 @@
+<h2 mat-dialog-title>CCM Work Queue Details</h2>
+
+<div mat-dialog-content>
+
+  <!-- === Eligible Policies === -->
+  <section class="section">
+    <h3>Seleced Policiy</h3>
+    <table class="simple-table" *ngIf="data.eligiblePolicies?.length; else noPolicies">
+      <thead>
+        <tr>
+          <th>Customer National ID</th>
+          <th>Company Name</th>
+          <th>Policy Type</th>
+          <th>Policy Number</th>
+          <th>Effective Date</th>
+          <th>Expiry Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of data.eligiblePolicies">
+          <td>{{ data.customerInfo?.nationalId || '-' }}</td>
+          <td>{{ p.companyName }}</td>
+          <td>{{ p.policyType }}</td>
+          <td>{{ p.policyNumber }}</td>
+          <td>{{ p.effectiveDate || '-' }}</td>
+          <td>{{ p.expiryDate || '-' }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noPolicies>
+      <p class="muted">No eligible policies available.</p>
+    </ng-template>
+  </section>
+
+  <!-- === Benefits === -->
+    <section class="section">
+    <h3>Benefits</h3>
+
+    <div *ngIf="(data?.benefits?.length || 0) > 0; else noBenefits">
+      <div class="benefit-card" *ngFor="let ben of data?.benefits">
+        <div class="benefit-row">
+          <span class="label">Benefit Name:</span>
+          <span class="value">{{ ben?.name }}</span>
+        </div>
+        <div class="benefit-row">
+          <span class="label">Limit:</span>
+          <span class="value">{{ ben?.limit }}</span>
+        </div>
+        <div class="benefit-row">
+          <span class="label">Remarks:</span>
+          <span class="value">{{ ben?.remarks || '-' }}</span>
+        </div>
+        <hr />
+      </div>
+    </div>
+
+    <ng-template #noBenefits>
+      <p class="muted">No benefit records found.</p>
+    </ng-template>
+  </section>
+
+  <!-- === PACKAGE DETAILS PANEL (VIEW ONLY) === -->
+  <section>
+    <div *ngIf="data.selectedPackage" class="package-details-card">
+
+      <div class="details-header">
+        <strong>Package: {{ data.selectedPackage.Name }}</strong>
+      </div>
+
+      <div class="details-body">
+
+        <div class="section-title">Why recommended:</div>
+
+        <ul class="bullet-list">
+          <li *ngIf="data.selectedPackage.icdMatch">
+            ICD10 {{ data.selectedPackage.icdMatch }} matches package condition
+          </li>
+          <li *ngIf="data.selectedPackage.network">
+            Contracted with {{ data.selectedPackage.network }}
+          </li>
+          <li *ngIf="data.selectedPackage.simbMatch">
+            SIMB item match {{ data.selectedPackage.simbMatch }}%
+          </li>
+        </ul>
+
+        <div class="divider"></div>
+
+        <!-- Package Price -->
+        <div class="detail-row">
+          <span class="label">Package Price:</span>
+          <span class="value">THB {{ data.selectedPackage.packagePrice }}</span>
+        </div>
+
+        <!-- Standard Tariff -->
+        <div class="detail-row">
+          <span class="label">Standard Tariff:</span>
+          <span class="value">THB {{ data.selectedPackage.standardTariff }}</span>
+        </div>
+
+        <!-- Savings -->
+        <div class="detail-row savings">
+          <span class="label">Savings:</span>
+          <span class="value">
+            THB {{ data.selectedPackage.standardTariff - data.selectedPackage.packagePrice }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  
+ 
+  <!-- === Uploaded Documents === -->
+  <section class="section">
+    <h3>Uploaded Documents</h3>
+    <div *ngIf="hasAnyUploaded(); else noUploadFiles">
+      <div class="upload-group" *ngIf="data.uploadedDocuments?.formFiles?.length">
+        <h4>Form Files</h4>
+        <ul>
+          <li *ngFor="let f of data.uploadedDocuments?.formFiles">{{ f.originalName }}</li>
+        </ul>
+      </div>
+
+      <div class="upload-group" *ngIf="data.uploadedDocuments?.labFiles?.length">
+        <h4>Lab Files</h4>
+        <ul>
+          <li *ngFor="let f of data.uploadedDocuments?.labFiles">{{ f.originalName }}</li>
+        </ul>
+      </div>
+
+      <div class="upload-group" *ngIf="data.uploadedDocuments?.otherFiles?.length">
+        <h4>Other Files</h4>
+        <ul>
+          <li *ngFor="let f of data.uploadedDocuments?.otherFiles">{{ f.originalName }}</li>
+        </ul>
+      </div>
+    </div>
+    <ng-template #noUploadFiles>
+      <p class="muted">No documents uploaded.</p>
+    </ng-template>
+  </section>
+
+  <!-- === Customer & Visit Info === -->
+  <section class="section two-col">
+    <!-- <div>
+      <h3>Customer Information</h3>
+      <p><strong>National ID:</strong> {{ data.customerInfo?.nationalId || '-' }}</p>
+      <p><strong>Policy Number:</strong> {{ data.customerInfo?.policyNumber || '-' }}</p>
+    </div> -->
+    <div>
+      <h3>Visit Information</h3>
+      <p><strong>Visit Type:</strong> {{ data.visitInfo?.visitType || '-' }}</p>
+      <p><strong>Reservation Type:</strong> {{ data.visitInfo?.reservationType || '-' }}</p>
+      <p><strong>ICD10:</strong> {{ data.visitInfo?.ICD10 || '-' }}</p>
+      <p><strong>ICD9:</strong> {{ data.visitInfo?.ICD9 || '-' }}</p>
+      <p><strong>Admission Date:</strong> {{ data.visitInfo?.AdmissionDate || '-' }}</p>
+      <p><strong>Accident Date:</strong> {{ data.visitInfo?.AccidentDate || '-' }}</p>
+    </div>
+  </section>
+
+  <!-- === Additional Info === -->
+  <section class="section">
+    <p><strong>Pre-arrangement:</strong> {{ data.prearengment || '-' }}</p>
+    <p><strong>Physician License Number:</strong> {{ data.physicianLicenceNumber || '-' }}</p>
+    <p><strong>SIMB Amount:</strong> {{ data.silbmAmount || '-' }}</p>
+    <p><strong>Length of Stay:</strong> {{ data.lengthOfStay || '-' }} days</p>
+    <p><strong>Average Cost:</strong> THB {{ data.averageCost || '-' }}</p>
+    <p><strong>Disease Details:</strong> {{ data.diseaseDetails || '-' }}</p>
+  </section>
+  
+  <!-- === Approval & Routing Form === -->
+<section class="section">
+
+  <h3>Approval & Routing</h3>
+
+  <form #approvalForm="ngForm" class="approval-grid">
+
+    <!-- isApproved -->
+    <mat-checkbox name="isApproved" [(ngModel)]="isApproved">
+      Approved
+    </mat-checkbox>
+
+    <!-- isExternalPending -->
+    <mat-checkbox name="isExternalPending" [(ngModel)]="isExternalPending">
+      External Pending
+    </mat-checkbox>
+
+    <!-- referToTeam -->
+    <mat-form-field appearance="fill" class="team-field">
+      <mat-label>Refer To Team</mat-label>
+      <mat-select name="referToTeam" [(ngModel)]="referToTeam">
+        <mat-option value="MedicalStaffManagerTeam">Manager's Team</mat-option>
+        <mat-option value="DoctorTeam">Doctor's Team</mat-option>
+        <mat-option value="ClaimTeam">Claims Team</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</section>
+
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button (click)="close()">Close</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()">
+    Submit
+  </button>
+</mat-dialog-actions>

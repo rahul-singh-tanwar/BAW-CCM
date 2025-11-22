@@ -3,12 +3,21 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  margin-top: -1.5rem;
 }
 
 .toolbar {
   display: flex;
   justify-content: space-between;
+  margin-bottom: -0.5rem;
+  background-color: #1976d2;
+  border-radius: 6px;
 }
+
+.toolbar span:first-child {
+  color: #eef0f2;
+}
+
 
 .spacer {
   flex: 1 1 auto;
@@ -80,10 +89,17 @@ mat-chip {
   background-color: #9e9e9e;
 }
 
-.form-section {
-  margin-top: 2rem;
-  padding: 1rem;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
+.workqueue-dialog .mat-dialog-container {
+  padding: 0 !important;
+  max-height: none !important;
+  height: auto !important;
+  overflow: hidden !important;
 }
+
+// .form-section {
+//   margin-top: 2rem;
+//   padding: 1rem;
+//   background: #fff;
+//   border-radius: 10px;
+//   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
+// }
