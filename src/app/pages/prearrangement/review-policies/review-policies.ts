@@ -9,6 +9,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { PolicyDetailsDialog } from './policy-details-dialog/policy-details-dialog';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-review-policies',
@@ -22,7 +23,8 @@ import { PolicyDetailsDialog } from './policy-details-dialog/policy-details-dial
     MatExpansionModule,
     MatRadioModule,
     MatDialogModule,
-    PolicyDetailsDialog
+    PolicyDetailsDialog,
+    MatButtonToggleModule
   ],
   templateUrl: './review-policies.html',
   styleUrls: ['./review-policies.css']
@@ -108,4 +110,26 @@ export class ReviewPolicies {
     });
 
   }
+
+    selectedPolicyFilter: string = 'A&H';  // default
+
+originalData: any[] = []; // untouched full list
+//dataSource: any[] = [];   // filtered table list
+
+ngOnInit() {
+  // When your table loads data, keep a copy of full list.
+  this.originalData = [...this.dataSource];
+  this.filterByPolicyType();
+}
+
+onPolicyFilterChange(value: string) {
+  this.selectedPolicyFilter = value;
+  this.filterByPolicyType();
+}
+
+filterByPolicyType() {
+  this.dataSource = this.originalData.filter(
+    x => x.policyType === this.selectedPolicyFilter
+  );
+}
 }

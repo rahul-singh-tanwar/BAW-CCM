@@ -73,3 +73,28 @@ tr.mat-row:hover {
   color: #1976d2;
   font-weight: 600;
 }
+
+
+
+.policy-toggle-container {
+  display: flex;
+  justify-content: center;  /* Center horizontally */
+  margin-bottom: 20px;
+}
+
+.policy-toggle-group {
+  font-weight: bold;
+  font-size: 18px;          /* Bigger text */
+}
+
+.policy-toggle-group .mat-button-toggle {
+  padding: 8px 20px;
+  font-size: 18px;          /* Bigger toggle text */
+  font-weight: bold;
+}
+
+.policy-toggle-group .mat-button-toggle-checked {
+  background-color: #1976d2 !important; /* Material Blue */
+  color: white !important;
+  border-radius: 8px;
+}
