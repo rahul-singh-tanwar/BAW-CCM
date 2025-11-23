@@ -41,6 +41,7 @@ export class CcmWorkQueue {
     this.dialogRef.close();
   }
 
+    actionMode: string = 'refer';
   // === APPROVAL & WORKFLOW FIELDS ===
   isApproved: boolean = false;           // Checkbox
   isExternalPending: boolean = false;    // Checkbox
@@ -57,7 +58,7 @@ export class CcmWorkQueue {
   hasAnyUploaded(): boolean {
     console.log("Uploaded Documents:", this.data);
     const docs = this.data.uploadedDocuments;
-    return docs?.formFiles?.length || docs?.labFiles?.length || docs?.otherFiles?.length ? true : false;
+    return docs?.formFiles?.items?.length || docs?.labFiles?.items?.length || docs?.otherFiles?.items?.length ? true : false;
   }
 
   formatDate(dateString: any): string {
@@ -73,6 +74,13 @@ export class CcmWorkQueue {
 }
 
   onSubmit() {
+
+    if(this.actionMode === "approval"){
+      this.isApproved = true;
+    }
+    else{
+      this.isApproved = false;
+    }
     const payload = {
       isApproved: this.isApproved,
       isExternalPending: this.isExternalPending,

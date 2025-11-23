@@ -25,10 +25,15 @@ export interface UploadedDoc {
   url: string;
 }
 
+export interface UploadedFilesGroup {
+  items: UploadedDoc[];
+  selected: UploadedDoc[];
+}
+
 export interface UploadedFilesCategories {
-  formFiles?: UploadedDoc[];
-  labFiles?: UploadedDoc[];
-  otherFiles?: UploadedDoc[];
+  formFiles?: UploadedFilesGroup;
+  labFiles?: UploadedFilesGroup;
+  otherFiles?: UploadedFilesGroup;
 }
 
 export interface CustomerInfo {

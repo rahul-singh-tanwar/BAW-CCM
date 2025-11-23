@@ -115,24 +115,24 @@
   <section class="section">
     <h3>Uploaded Documents</h3>
     <div *ngIf="hasAnyUploaded(); else noUploadFiles">
-      <div class="upload-group" *ngIf="data.uploadedDocuments?.formFiles?.length">
+      <div class="upload-group" *ngIf="data.uploadedDocuments?.formFiles?.items?.length">
         <h4>Form Files</h4>
         <ul>
-          <li *ngFor="let f of data.uploadedDocuments?.formFiles">{{ f.originalName }}</li>
+          <li *ngFor="let f of data.uploadedDocuments?.formFiles?.items">{{ f.originalName }}</li>
         </ul>
       </div>
 
-      <div class="upload-group" *ngIf="data.uploadedDocuments?.labFiles?.length">
+      <div class="upload-group" *ngIf="data.uploadedDocuments?.labFiles?.items?.length">
         <h4>Lab Files</h4>
         <ul>
-          <li *ngFor="let f of data.uploadedDocuments?.labFiles">{{ f.originalName }}</li>
+          <li *ngFor="let f of data.uploadedDocuments?.labFiles?.items">{{ f.originalName }}</li>
         </ul>
       </div>
 
-      <div class="upload-group" *ngIf="data.uploadedDocuments?.otherFiles?.length">
+      <div class="upload-group" *ngIf="data.uploadedDocuments?.otherFiles?.items?.length">
         <h4>Other Files</h4>
         <ul>
-          <li *ngFor="let f of data.uploadedDocuments?.otherFiles">{{ f.originalName }}</li>
+          <li *ngFor="let f of data.uploadedDocuments?.otherFiles?.items">{{ f.originalName }}</li>
         </ul>
       </div>
     </div>
@@ -192,29 +192,41 @@
   <!-- === Approval & Routing Form === -->
 <section class="section">
 
-  <h3>Approval & Routing</h3>
+  <h3>Approval / Routing</h3>
 
   <form #approvalForm="ngForm" class="approval-grid">
 
-    <!-- isApproved -->
-    <mat-checkbox name="isApproved" [(ngModel)]="isApproved">
-      Approved
-    </mat-checkbox>
-
-    <!-- isExternalPending -->
-    <mat-checkbox name="isExternalPending" [(ngModel)]="isExternalPending">
-      External Pending
-    </mat-checkbox>
-
-    <!-- referToTeam -->
-    <mat-form-field appearance="fill" class="team-field">
-      <mat-label>Refer To Team</mat-label>
-      <mat-select name="referToTeam" [(ngModel)]="referToTeam">
-        <mat-option value="MedicalStaffManagerTeam">Manager's Team</mat-option>
-        <mat-option value="DoctorTeam">Doctor's Team</mat-option>
-        <mat-option value="ClaimTeam">Claims Team</mat-option>
+    <!-- Action Mode -->
+    <mat-form-field appearance="fill" class="full-row">
+      <mat-label>Action</mat-label>
+      <mat-select name="actionMode" [(ngModel)]="actionMode">
+        <mat-option value="approval">Approved</mat-option>
+        <mat-option value="refer">Refer To</mat-option>
       </mat-select>
     </mat-form-field>
+
+    <!-- Approval Controls -->
+    <!-- <div *ngIf="actionMode === 'approval'" class="approval-group">
+      <mat-checkbox name="isApproved" [(ngModel)]="isApproved">
+        Approved
+      </mat-checkbox>
+
+      <mat-checkbox name="isExternalPending" [(ngModel)]="isExternalPending">
+        External Pending
+      </mat-checkbox>
+    </div> -->
+
+    <!-- Refer Controls -->
+    <div *ngIf="actionMode === 'refer'" class="refer-group">
+      <mat-form-field appearance="fill" class="team-field">
+        <mat-label>Refer To Team</mat-label>
+        <mat-select name="referToTeam" [(ngModel)]="referToTeam">
+          <mat-option value="MedicalStaffManagerTeam">Manager's Team</mat-option>
+          <mat-option value="DoctorTeam">Doctor's Team</mat-option>
+          <mat-option value="ClaimTeam">Claims Team</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </form>
 </section>
 
