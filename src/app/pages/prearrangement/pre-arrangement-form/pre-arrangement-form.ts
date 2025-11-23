@@ -35,7 +35,7 @@ export class PreArrangementForm implements OnInit {
       visitType: ['Sickness', Validators.required],
       reservationType: ['', Validators.required],
      // hospitalName: ['', Validators.required],
-      icd10: ['A22', Validators.required],
+      icd10: ['K35', Validators.required],
       icd9: [''],
       admissionDate: ['', Validators.required],
       accidentDate: ['', Validators.required],

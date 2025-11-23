@@ -7,12 +7,7 @@
       <span class="nav-text">Work</span>
     </a>
 
-    <a class="nav-item" [class.active]="isActive('/process')" (click)="navigateTo('/process')">
-      <div class="nav-icon">
-        <mat-icon>lightbulb</mat-icon>
-      </div>
-      <span class="nav-text">Process</span>
-    </a>
+  
 
     <a class="nav-item" *ngIf="auth.canAccess({ users: ['medstaff1', 'medstaff2']})" [class.active]="isActive('/process-performance')" (click)="navigateTo('/process-performance')">
       <div class="nav-icon">
@@ -21,12 +16,12 @@
       <span class="nav-text">Process Performance</span>
     </a>
 
-    <a class="nav-item" *ngIf="auth.canAccess({ users: ['medstaff1', 'medstaff2']})" [class.active]="isActive('/team-performance')" (click)="navigateTo('/team-performance')">
+    <!-- <a class="nav-item" *ngIf="auth.canAccess({ users: ['medstaff1', 'medstaff2']})" [class.active]="isActive('/team-performance')" (click)="navigateTo('/team-performance')">
       <div class="nav-icon">
         <mat-icon>groups</mat-icon>
       </div>
       <span class="nav-text">Task Performance</span>
-    </a>
+    </a> -->
 
     <a class="nav-item" *ngIf="auth.canAccess({ users: ['medstaff1', 'medstaff2']})" [class.active]="isActive('/ccm-work-queue')" (click)="navigateTo('/ccm-work-queue')">
       <div class="nav-icon">
@@ -48,3 +43,10 @@
     </a>
   </div>
 </nav>
+
+  <a class="nav-item" [class.active]="isActive('/process')" (click)="navigateTo('/process')">
+      <div class="nav-icon">
+        <mat-icon></mat-icon>
+      </div>
+      <span class="nav-text"></span>
+    </a>

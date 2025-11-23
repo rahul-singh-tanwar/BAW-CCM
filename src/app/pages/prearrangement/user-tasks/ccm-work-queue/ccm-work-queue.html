@@ -4,7 +4,7 @@
 
   <!-- === Eligible Policies === -->
   <section class="section">
-    <h3>Seleced Policiy</h3>
+    <h3>Selected Policy</h3>
     <table class="simple-table" *ngIf="data.eligiblePolicies?.length; else noPolicies">
       <thead>
         <tr>
@@ -60,7 +60,8 @@
   </section>
 
   <!-- === PACKAGE DETAILS PANEL (VIEW ONLY) === -->
-  <section>
+  <section class ="section">
+    <h3>Selected Package </h3>
     <div *ngIf="data.selectedPackage" class="package-details-card">
 
       <div class="details-header">
@@ -88,20 +89,20 @@
         <!-- Package Price -->
         <div class="detail-row">
           <span class="label">Package Price:</span>
-          <span class="value">THB {{ data.selectedPackage.packagePrice }}</span>
+          <span class="value">฿ {{ data.selectedPackage.packagePrice }}</span>
         </div>
 
         <!-- Standard Tariff -->
         <div class="detail-row">
           <span class="label">Standard Tariff:</span>
-          <span class="value">THB {{ data.selectedPackage.standardTariff }}</span>
+          <span class="value">฿ {{ data.selectedPackage.standardTariff }}</span>
         </div>
 
         <!-- Savings -->
         <div class="detail-row savings">
           <span class="label">Savings:</span>
           <span class="value">
-            THB {{ data.selectedPackage.standardTariff - data.selectedPackage.packagePrice }}
+            ฿ {{ data.selectedPackage.standardTariff - data.selectedPackage.packagePrice }}
           </span>
         </div>
       </div>
@@ -147,27 +148,47 @@
       <p><strong>National ID:</strong> {{ data.customerInfo?.nationalId || '-' }}</p>
       <p><strong>Policy Number:</strong> {{ data.customerInfo?.policyNumber || '-' }}</p>
     </div> -->
+      <!-- === Additional Details === -->
+<section class="section">
+  <h3>Additional Details</h3>
+
+  <p><strong>Pre-arrangement:</strong> {{ data.prearengment || '-' }}</p>
+  <p><strong>Physician License Number:</strong> {{ data.physicianLicenceNumber || '-' }}</p>
+  <p><strong>SIMB Amount:</strong> ฿ {{ data.silbmAmount || '-' }}</p>
+
+</section>
     <div>
       <h3>Visit Information</h3>
       <p><strong>Visit Type:</strong> {{ data.visitInfo?.visitType || '-' }}</p>
       <p><strong>Reservation Type:</strong> {{ data.visitInfo?.reservationType || '-' }}</p>
       <p><strong>ICD10:</strong> {{ data.visitInfo?.ICD10 || '-' }}</p>
       <p><strong>ICD9:</strong> {{ data.visitInfo?.ICD9 || '-' }}</p>
-      <p><strong>Admission Date:</strong> {{ data.visitInfo?.AdmissionDate || '-' }}</p>
-      <p><strong>Accident Date:</strong> {{ data.visitInfo?.AccidentDate || '-' }}</p>
+     <p><strong>Admission Date:</strong> {{ formatDate(data.visitInfo?.AdmissionDate) }}</p>
+<p><strong>Accident Date:</strong> {{ formatDate(data.visitInfo?.AccidentDate) }}</p>
     </div>
   </section>
 
   <!-- === Additional Info === -->
-  <section class="section">
+  <!-- <section class="section">
     <p><strong>Pre-arrangement:</strong> {{ data.prearengment || '-' }}</p>
     <p><strong>Physician License Number:</strong> {{ data.physicianLicenceNumber || '-' }}</p>
     <p><strong>SIMB Amount:</strong> {{ data.silbmAmount || '-' }}</p>
     <p><strong>Length of Stay:</strong> {{ data.lengthOfStay || '-' }} days</p>
     <p><strong>Average Cost:</strong> THB {{ data.averageCost || '-' }}</p>
     <p><strong>Disease Details:</strong> {{ data.diseaseDetails || '-' }}</p>
-  </section>
+  </section> -->
   
+
+
+<!-- === Diagnosis Description / Clinical Remark === -->
+<section class="section" style="margin-top: 20px;">
+  <h3 >Diagnosis Description / Clinical Remark </h3>
+
+  <p><strong>Details:</strong> {{ data.diseaseDetails || '-' }}</p>
+    <p><strong>Length of Stay:</strong> {{ data.lengthOfStay || '-' }} days</p>
+  <p><strong>Average Cost:</strong> ฿ {{ data.averageCost || '-' }}</p>
+</section>
+
   <!-- === Approval & Routing Form === -->
 <section class="section">
 

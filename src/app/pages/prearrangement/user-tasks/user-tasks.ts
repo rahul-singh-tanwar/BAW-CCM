@@ -246,7 +246,7 @@ export class UserTasksComponent implements OnInit, OnDestroy {
                 AccidentDate: varsMap.visitInfo?.accidentDate || ""
             },
 
-            prearengment: varsMap.preArrangNumber || "",
+            prearengment: varsMap.preArrangementNo || "",
             physicianLicenceNumber:
                 varsMap.physicianNumber || varsMap.physicianLicense || "",
             silbmAmount: varsMap.simbAmount || "",

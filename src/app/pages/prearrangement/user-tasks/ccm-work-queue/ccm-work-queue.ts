@@ -60,12 +60,26 @@ export class CcmWorkQueue {
     return docs?.formFiles?.length || docs?.labFiles?.length || docs?.otherFiles?.length ? true : false;
   }
 
+  formatDate(dateString: any): string {
+  if (!dateString) return '-';
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) return '-';
+
+  const mm = String(date.getMonth() + 1).padStart(2, '0');
+  const dd = String(date.getDate()).padStart(2, '0');
+  const yyyy = date.getFullYear();
+
+  return `${yyyy}-${mm}-${dd}`;
+}
+
   onSubmit() {
     const payload = {
       isApproved: this.isApproved,
       isExternalPending: this.isExternalPending,
       referToTeam: this.referToTeam || '',
     };
+
+    
 
     let taskKey = this.data.userTaskKey || '';
     

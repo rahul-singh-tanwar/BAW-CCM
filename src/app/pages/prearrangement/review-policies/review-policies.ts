@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component ,Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
@@ -30,6 +30,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
   styleUrls: ['./review-policies.css']
 })
 export class ReviewPolicies {
+  @Output() backPressed = new EventEmitter<void>();
   dataSource = [
     {
       companyName: 'Allianz Ayudhya',
@@ -132,4 +133,7 @@ filterByPolicyType() {
     x => x.policyType === this.selectedPolicyFilter
   );
 }
+goBack() {
+    this.backPressed.emit();
+  }
 }

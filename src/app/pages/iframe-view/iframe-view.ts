@@ -18,8 +18,9 @@ export class IframeView implements OnInit {
   ngOnInit() {
 
     //  this.iframeUrl = this.iframeService.getUrl();
-    this.iframeUrl = 'http://localhost:8083/external/#/share/dashboard/9a9e7f32-0685-40c5-85c5-ea75b04a5c54?mode=embed&filter=%5B%5D';
+   // this.iframeUrl = 'http://localhost:8083/external/#/share/dashboard/9a9e7f32-0685-40c5-85c5-ea75b04a5c54?mode=embed&filter=%5B%5D';
    // this.iframeUrl = 'http://localhost:8083/external/#/share/report/e84005d7-d1d5-492e-896d-b5db6e4ae8b6?mode=embed';
+    this.iframeUrl = 'http://localhost:8083/external/#/share/dashboard/4e9ecdc9-7571-4cca-b6a2-bec94cb36e72?mode=embed&filter=%5B%5D';
   }
 }
 
