@@ -1,0 +1,26 @@
+[
+  { "code": "001", "description": "Cholera" },
+  { "code": "001.0", "description": "Cholera due to Vibrio cholerae" },
+  { "code": "001.1", "description": "Cholera due to Vibrio eltor" },
+  { "code": "001.9", "description": "Cholera, unspecified" },
+
+  { "code": "002", "description": "Typhoid and paratyphoid fevers" },
+  { "code": "002.0", "description": "Typhoid fever" },
+  { "code": "002.1", "description": "Paratyphoid fever A" },
+  { "code": "002.2", "description": "Paratyphoid fever B" },
+  { "code": "002.3", "description": "Paratyphoid fever C" },
+  { "code": "002.9", "description": "Paratyphoid fever, unspecified" },
+
+  { "code": "003", "description": "Other salmonella infections" },
+  { "code": "003.0", "description": "Salmonella gastroenteritis" },
+  { "code": "003.1", "description": "Salmonella septicemia" },
+  { "code": "003.2", "description": "Localized salmonella infections" },
+  { "code": "003.9", "description": "Salmonella infection, unspecified" },
+
+  { "code": "004", "description": "Shigellosis" },
+  { "code": "004.0", "description": "Shigella dysenteriae" },
+  { "code": "004.1", "description": "Shigella flexneri" },
+  { "code": "004.2", "description": "Shigella boydii" },
+  { "code": "004.3", "description": "Shigella sonnei" },
+  { "code": "004.9", "description": "Shigellosis, unspecified" }
+]

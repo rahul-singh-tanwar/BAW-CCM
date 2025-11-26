@@ -4,10 +4,18 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { searchApi } from '../../../../utils/searchService';
 import { CamundaService } from '../../../../utils/camunda.service';
+import { Icd10Service } from '../../../services/icd10.service';
+import { FormControl } from '@angular/forms';
+import { Observable, map, startWith } from 'rxjs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatOptionModule } from '@angular/material/core';
+import { Icd9Service } from '../../../services/icd9.service';
 
 @Component({
   selector: 'app-pre-arrangement-form',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatOptionModule],
   templateUrl: './pre-arrangement-form.html',
   styleUrl: './pre-arrangement-form.css',
 })
@@ -27,20 +35,27 @@ export class PreArrangementForm implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private camundaService: CamundaService
+    private camundaService: CamundaService,
+    private icdService: Icd10Service,
+    private icd9Service: Icd9Service
   ) {
     this.form = this.fb.group({
       nationalId: ['1234567890123'],
       policyNumber: [''],
-      visitType: ['Sickness', Validators.required],
-      reservationType: ['', Validators.required],
+      visitType: ['Accident', Validators.required],
+      reservationType: ['Pre-arrangement', Validators.required],
      // hospitalName: ['', Validators.required],
       icd10: ['K35', Validators.required],
       icd9: [''],
-      admissionDate: ['', Validators.required],
-      accidentDate: ['', Validators.required],
+      admissionDate: ['2025-11-01', Validators.required],
+      accidentDate: ['2025-11-01', Validators.required],
     });
   }
+
+  icdControl = new FormControl('');
+  allCodes: any[] = [];
+  filteredCodes!: Observable<any[]>;
+  icd9Control = new FormControl('');
 
 
   ngOnInit(): void {
@@ -55,9 +70,28 @@ export class PreArrangementForm implements OnInit {
         this.processInstanceKey = key;
       }
     });
+
+     this.icdService.getCodes().subscribe(data => {
+      this.allCodes = data;
+      console.log('ICD-10 Codes loaded:', this.allCodes);
+
+      this.filteredCodes = this.icdControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this.filterCodes(value || ''))
+      );
+      console.log('Filtered Codes Observable set up');
+    });
+
+    
   }
 
-
+ filterCodes(value: string): any[] {
+    const filter = value.toLowerCase();
+    return this.allCodes.filter(code =>
+      code.code.toLowerCase().includes(filter) ||
+      code.description.toLowerCase().includes(filter)
+    );
+  }
   onDepartmentChange(dept: 'IPD' | 'OPD') {
     this.departmentValue = dept;
     if (dept === 'IPD') {

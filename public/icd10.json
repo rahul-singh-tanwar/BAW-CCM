@@ -1,0 +1,146 @@
+[
+  {
+    "code": "A00",
+    "description": "Cholera"
+  },
+  {
+    "code": "A00.0",
+    "description": "Cholera due to Vibrio cholerae 01, biovar cholerae"
+  },
+  {
+    "code": "A00.1",
+    "description": "Cholera due to Vibrio cholerae 01, biovar eltor"
+  },
+  {
+    "code": "A00.9",
+    "description": "Cholera, unspecified"
+  },
+  {
+    "code": "A01",
+    "description": "Typhoid and paratyphoid fevers"
+  },
+  {
+    "code": "A01.0",
+    "description": "Typhoid fever"
+  },
+  {
+    "code": "A01.1",
+    "description": "Paratyphoid fever A"
+  },
+  {
+    "code": "A01.2",
+    "description": "Paratyphoid fever B"
+  },
+  {
+    "code": "A01.3",
+    "description": "Paratyphoid fever C"
+  },
+  {
+    "code": "A01.4",
+    "description": "Paratyphoid fever, unspecified"
+  },
+  {
+    "code": "A02",
+    "description": "Other salmonella infections"
+  },
+  {
+    "code": "A02.0",
+    "description": "Salmonella enteritis"
+  },
+  {
+    "code": "A02.1",
+    "description": "Salmonella sepsis"
+  },
+  {
+    "code": "A02.2",
+    "description": "Localized salmonella infections"
+  },
+  {
+    "code": "A02.9",
+    "description": "Salmonella infection, unspecified"
+  },
+  {
+    "code": "A03",
+    "description": "Shigellosis"
+  },
+  {
+    "code": "A03.0",
+    "description": "Shigellosis due to Shigella dysenteriae"
+  },
+  {
+    "code": "A03.1",
+    "description": "Shigellosis due to Shigella flexneri"
+  },
+  {
+    "code": "A03.2",
+    "description": "Shigellosis due to Shigella boydii"
+  },
+  {
+    "code": "A03.3",
+    "description": "Shigellosis due to Shigella sonnei"
+  },
+  {
+    "code": "A03.9",
+    "description": "Shigellosis, unspecified"
+  },
+  {
+    "code": "A04",
+    "description": "Other bacterial intestinal infections"
+  },
+  {
+    "code": "A04.0",
+    "description": "Enteropathogenic Escherichia coli infection"
+  },
+  {
+    "code": "A04.1",
+    "description": "Enterotoxigenic Escherichia coli infection"
+  },
+  {
+    "code": "A04.2",
+    "description": "Enteroinvasive Escherichia coli infection"
+  },
+  {
+    "code": "A04.3",
+    "description": "Enterohemorrhagic Escherichia coli infection"
+  },
+  {
+    "code": "A04.4",
+    "description": "Other intestinal Escherichia coli infections"
+  },
+  {
+    "code": "A04.5",
+    "description": "Campylobacter enteritis"
+  },
+  {
+    "code": "A04.6",
+    "description": "Enteritis due to Yersinia enterocolitica"
+  },
+  {
+    "code": "A04.7",
+    "description": "Enterocolitis due to Clostridium difficile"
+  },
+  {
+    "code": "A04.8",
+    "description": "Other specified bacterial intestinal infections"
+  },
+  {
+    "code": "A04.9",
+    "description": "Bacterial intestinal infection, unspecified"
+  },
+  {
+    "code": "K35",
+    "description": "Acute appendicitis"
+  },
+  {
+    "code": "K35.2",
+    "description": "Acute appendicitis with generalized peritonitis"
+  },
+  {
+    "code": "K35.3",
+    "description": "Acute appendicitis with localized peritonitis"
+  },
+  {
+    "code": "K35.8",
+    "description": "Other and unspecified acute appendicitis"
+  }
+]

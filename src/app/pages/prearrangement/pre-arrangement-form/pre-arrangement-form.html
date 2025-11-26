@@ -55,14 +55,35 @@
     <div class="form-row">
       <div class="form-group half">
         <label>*ICD10:</label>
-        <input type="text" formControlName="icd10" placeholder="Enter ICD10 Code">
+        <input type="text" formControlName="icd10" placeholder="Enter ICD10 Code" [formControl]="icdControl" [matAutocomplete]="auto" />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let item of filteredCodes | async" [value]="item.code">
+            {{ item.code }} — {{ item.description }}
+          </mat-option>
+        </mat-autocomplete>
       </div>
+
+
+      <!-- <mat-form-field appearance="outline" class="w-full">
+        <mat-label>ICD-10 Code</mat-label>
+      
+        <input type="text" matInput [formControl]="icdControl" [matAutocomplete]="auto" />
+      
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let item of filteredCodes | async" [value]="item.code">
+            {{ item.code }} — {{ item.description }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field> -->
+
 
       <div class="form-group half">
         <label>ICD9:</label>
         <input type="text" formControlName="icd9" placeholder="Enter ICD9 Code">
       </div>
     </div>
+
+  
 
     <div class="form-row">
       <div class="form-group half">
@@ -71,7 +92,7 @@
       </div>
 
       <div class="form-group half">
-        <label>*Accident Date:</label>
+        <label>Accident Date:</label>
         <input type="date" formControlName="accidentDate">
       </div>
     </div>
