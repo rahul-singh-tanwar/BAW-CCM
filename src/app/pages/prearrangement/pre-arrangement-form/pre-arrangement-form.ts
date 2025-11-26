@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatOptionModule } from '@angular/material/core';
 import { Icd9Service } from '../../../services/icd9.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-pre-arrangement-form',
@@ -37,7 +38,8 @@ export class PreArrangementForm implements OnInit {
     private route: ActivatedRoute,
     private camundaService: CamundaService,
     private icdService: Icd10Service,
-    private icd9Service: Icd9Service
+    private icd9Service: Icd9Service,
+    private http: HttpClient
   ) {
     this.form = this.fb.group({
       nationalId: ['1234567890123'],
@@ -55,7 +57,15 @@ export class PreArrangementForm implements OnInit {
   icdControl = new FormControl('');
   allCodes: any[] = [];
   filteredCodes!: Observable<any[]>;
+  // ------------------- ICD-10 -------------------
+  icd10Control = new FormControl('');
+  icd10All: any[] = [];
+  icd10Filtered: any[] = [];
+
+  // ------------------- ICD-9 -------------------
   icd9Control = new FormControl('');
+  icd9All: any[] = [];
+  icd9Filtered: any[] = [];
 
 
   ngOnInit(): void {
@@ -80,6 +90,32 @@ export class PreArrangementForm implements OnInit {
         map(value => this.filterCodes(value || ''))
       );
       console.log('Filtered Codes Observable set up');
+    });
+
+    /* -------- Load ICD-10 from public/icd10.json -------- */
+    this.http.get<any[]>('/icd10.json').subscribe(data => {
+      this.icd10All = data;
+
+      this.icd10Control.valueChanges.subscribe(term => {
+        const t = (term || '').toLowerCase();
+        this.icd10Filtered = this.icd10All.filter(c =>
+          c.code.toLowerCase().includes(t) ||
+          c.description.toLowerCase().includes(t)
+        );
+      });
+    });
+
+    /* -------- Load ICD-9 from public/icd9.json -------- */
+    this.http.get<any[]>('/icd9.json').subscribe(data => {
+      this.icd9All = data;
+
+      this.icd9Control.valueChanges.subscribe(term => {
+        const t = (term || '').toLowerCase();
+        this.icd9Filtered = this.icd9All.filter(c =>
+          c.code.toLowerCase().includes(t) ||
+          c.description.toLowerCase().includes(t)
+        );
+      });
     });
 
     

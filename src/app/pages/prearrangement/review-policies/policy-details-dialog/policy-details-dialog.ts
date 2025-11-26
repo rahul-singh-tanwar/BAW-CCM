@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogModule, MatDialogRef, } from '@angular/material/dialog';
 import { FileUpload } from '../file-upload/file-upload';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,10 +11,19 @@ import { MatRadioModule } from '@angular/material/radio';
 import { CamundaService } from '../../../../../utils/camunda.service';
 import { switchMap, tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatOptionModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-policy-details-dialog',
-  imports: [FileUpload, CommonModule, FormsModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatRadioModule],
+  imports: [FileUpload, CommonModule, FormsModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatRadioModule,
+     ReactiveFormsModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatAutocompleteModule,
+  MatOptionModule
+  ],
   templateUrl: './policy-details-dialog.html',
   styleUrls: ['./policy-details-dialog.css'],
 })
@@ -49,11 +58,32 @@ export class PolicyDetailsDialog {
     }
   ];
 
+  // SIMB — Standardized Items for K35 Appendicitis
+simbControl = new FormControl('');
+simbAll = [
+  { code: 'SIMB-3001', description: 'Appendectomy Package', tariff: 45000 },
+  { code: 'SIMB-3002', description: 'Surgeon Fee', tariff: 8000 },
+  { code: 'SIMB-3003', description: 'Anesthesia Service', tariff: 6000 },
+  { code: 'SIMB-3004', description: 'Operating Room Charge', tariff: 5000 },
+  { code: 'SIMB-3005', description: 'Ward Stay (per day)', tariff: 3000 }
+];
+simbFiltered: any[] = [];
+
   ngOnInit() {
     // After packageList is populated:
     if (this.packageList?.length && !this.selectedPackage) {
       this.selectedPackage = this.packageList[0]; // default select
     }
+
+    // ------- SIMB AUTOCOMPLETE -------
+  this.simbControl.valueChanges.subscribe(value => {
+    const term = (value || '').toLowerCase();
+    this.simbFiltered = this.simbAll.filter(item =>
+      item.code.toLowerCase().includes(term) ||
+      item.description.toLowerCase().includes(term) ||
+      item.tariff.toString().includes(term)
+    );
+  });
   }
 
 

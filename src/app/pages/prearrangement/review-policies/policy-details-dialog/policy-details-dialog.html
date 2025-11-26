@@ -45,11 +45,31 @@
       <mat-form-field appearance="fill" class="simb-field">
         <mat-label>SIMB Amount</mat-label>
         <span matPrefix class="baht-prefix">฿&nbsp;</span>
-        <input matInput name="simbAmount" [(ngModel)]="simbAmount" type="number" required />
+        <input matInput name="simbAmount" [(ngModel)]="simbAmount" type="number" required [formControl]="simbControl" [matAutocomplete]="simbAuto"/>
+        <mat-autocomplete #simbAuto="matAutocomplete">
+          <mat-option *ngFor="let item of simbFiltered" [value]="item.tariff">
+            <strong>{{ item.code }}</strong> — {{ item.description }}
+            (฿{{ item.tariff | number }})
+          </mat-option>
+        </mat-autocomplete>
         <mat-error *ngIf="detailsForm.submitted && !simbAmount">
           SIMB Amount is required
         </mat-error>
       </mat-form-field>
+      <!-- SIMB (Standardized Items) Dropdown with Autocomplete -->
+      <!-- <mat-form-field appearance="fill" class="w-full">
+        <mat-label>SIMB Code / Description</mat-label>
+
+        <input type="text" matInput [formControl]="simbControl" [matAutocomplete]="simbAuto" />
+
+        <mat-autocomplete #simbAuto="matAutocomplete">
+          <mat-option *ngFor="let item of simbFiltered" [value]="item.tariff">
+            <strong>{{ item.code }}</strong> — {{ item.description }}
+            (฿{{ item.tariff | number }})
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field> -->
+
 
       <mat-form-field appearance="fill">
         <mat-label>Estimated Cost</mat-label>

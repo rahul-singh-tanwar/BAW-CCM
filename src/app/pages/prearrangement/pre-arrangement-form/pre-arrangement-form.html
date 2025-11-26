@@ -1,6 +1,6 @@
 <div class="prearrangement-form">
   <!-- Go Back Button  -->
-   <!-- <button type="button" class="back-btn" (click)="goBack()">
+  <!-- <button type="button" class="back-btn" (click)="goBack()">
     <mat-icon>arrow_back</mat-icon> Go Back
   </button> -->
 
@@ -55,35 +55,55 @@
     <div class="form-row">
       <div class="form-group half">
         <label>*ICD10:</label>
-        <input type="text" formControlName="icd10" placeholder="Enter ICD10 Code" [formControl]="icdControl" [matAutocomplete]="auto" />
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let item of filteredCodes | async" [value]="item.code">
+        <input type="text" formControlName="icd10" placeholder="Enter ICD10 Code" [formControl]="icd10Control"
+          [matAutocomplete]="icd10Auto" />
+        <mat-autocomplete #icd10Auto="matAutocomplete">
+          <mat-option *ngFor="let item of icd10Filtered" [value]="item.code">
             {{ item.code }} — {{ item.description }}
           </mat-option>
         </mat-autocomplete>
       </div>
 
+      <!-- <mat-form-field appearance="outline">
+  <mat-label>ICD-10 Code</mat-label>
 
-      <!-- <mat-form-field appearance="outline" class="w-full">
-        <mat-label>ICD-10 Code</mat-label>
-      
-        <input type="text" matInput [formControl]="icdControl" [matAutocomplete]="auto" />
-      
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let item of filteredCodes | async" [value]="item.code">
-            {{ item.code }} — {{ item.description }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field> -->
+  <input matInput [formControl]="icd10Control" [matAutocomplete]="icd10Auto">
+
+  <mat-autocomplete #icd10Auto="matAutocomplete">
+    <mat-option *ngFor="let item of icd10Filtered" [value]="item.code">
+      {{ item.code }} — {{ item.description }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field> -->
+
+
+      <!-- ICD-9 Input -->
+      <!-- <mat-form-field appearance="outline">
+  <mat-label>ICD-9 Code</mat-label>
+
+  <input matInput [formControl]="icd9Control" [matAutocomplete]="icd9Auto">
+
+  <mat-autocomplete #icd9Auto="matAutocomplete">
+    <mat-option *ngFor="let item of icd9Filtered" [value]="item.code">
+      {{ item.code }} — {{ item.description }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field> -->
 
 
       <div class="form-group half">
         <label>ICD9:</label>
-        <input type="text" formControlName="icd9" placeholder="Enter ICD9 Code">
+        <input type="text" formControlName="icd9" placeholder="Enter ICD9 Code" [formControl]="icd9Control"
+          [matAutocomplete]="icd9Auto">
+        <mat-autocomplete #icd9Auto="matAutocomplete">
+          <mat-option *ngFor="let item of icd9Filtered" [value]="item.code">
+            {{ item.code }} — {{ item.description }}
+          </mat-option>
+        </mat-autocomplete>
       </div>
     </div>
 
-  
+
 
     <div class="form-row">
       <div class="form-group half">
