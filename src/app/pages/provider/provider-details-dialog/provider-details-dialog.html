@@ -1,0 +1,93 @@
+<h2 mat-dialog-title>Provider — Details</h2>
+ 
+<div mat-dialog-content>
+ 
+  <mat-tab-group class="tabs-container">
+ 
+    <!-- Contracts -->
+    <mat-tab label="Contracts">
+      <div class="table-wrapper">
+        <table class="inner-table">
+          <thead>
+            <tr>
+              <th>Contract ID</th>
+              <th>Company</th>
+              <th>Product Line</th>
+              <th>Effective</th>
+              <th>Expiry</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of data.contracts">
+              <td>{{ c.id }}</td>
+              <td>{{ c.company }}</td>
+              <td>{{ c.productLine }}</td>
+              <td>{{ c.effectiveDate }}</td>
+              <td>{{ c.expiryDate }}</td>
+              <td>
+                <span class="status-badge" [ngClass]="c.status.toLowerCase().replace(' ', '-')">
+                  {{ c.status }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-tab>
+ 
+    <!-- Packages -->
+    <mat-tab label="Packages">
+      <div class="table-wrapper">
+        <table class="inner-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Coverage</th>
+              <th>Base Tariff</th>
+              <th>Room</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of data.packages">
+              <td>{{ p.id }}</td>
+              <td>{{ p.name }}</td>
+              <td>{{ p.coverageType }}</td>
+              <td>{{ p.baseTariff }}</td>
+              <td>{{ p.roomType }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-tab>
+ 
+    <!-- Doctors -->
+    <mat-tab label="Doctors">
+      <div class="table-wrapper">
+        <table class="inner-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Specialty</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let d of data.doctors">
+                <td>{{ d.id }}</td>
+              <td>{{ d.name }}</td>
+              <td>{{ d.specialty }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-tab>
+ 
+  </mat-tab-group>
+ 
+</div>
+ 
+<!-- <div mat-dialog-actions align="end">
+  <button mat-stroked-button mat-dialog-close>Close</button>
+</div> -->

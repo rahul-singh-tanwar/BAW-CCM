@@ -59,6 +59,43 @@
     </ng-template>
   </section>
 
+  <!-- <section class="section">
+    <h3>Select Provider</h3>
+    <mat-form-field appearance="fill" class="full-row">
+      <mat-label>Provider Code</mat-label>
+      <mat-select name="providerCode" [(ngModel)]="providerCode" (selectionChange)="openProviderDialog()">
+        <mat-option value="H001">H001 : Bangkok General Hospital</mat-option>
+        <mat-option value="H014">H014 : Chiang Mai International Hospital</mat-option>
+        <mat-option value="H022">H022 : Samui Care Clinic</mat-option> 
+        <mat-option value="H030">H030 : Vajira University Hospital</mat-option>        
+    
+ 
+      </mat-select>
+    </mat-form-field>
+  </section> -->
+
+  <section class="section">
+  <mat-card class="provider-card">
+    <h3>Select Provider</h3>
+
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Provider Code</mat-label>
+        <mat-select
+          name="providerCode"
+          [(ngModel)]="providerCode"
+          (selectionChange)="openProviderDialog()"
+        >
+          <mat-option value="H001">H001 — Bangkok General Hospital</mat-option>
+          <mat-option value="H014">H014 — Chiang Mai International Hospital</mat-option>
+          <mat-option value="H022">H022 — Samui Care Clinic</mat-option>
+          <mat-option value="H030">H030 — Vajira University Hospital</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+</section>
+
   <!-- === PACKAGE DETAILS PANEL (VIEW ONLY) === -->
   <section class ="section">
     <h3>Selected Package </h3>

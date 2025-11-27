@@ -270,3 +270,21 @@ mat-checkbox {
   font-size: 14px;
 }
 
+.provider-section {
+  margin: 20px 0;
+}
+
+.provider-card {
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.full-width {
+  width: 35%;
+}
+
+mat-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}

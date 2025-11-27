@@ -11,6 +11,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';   // if still using radios anywhere
 import { CamundaService } from '../../../../../utils/camunda.service';
+import { MatDialog } from '@angular/material/dialog';
+import { providers } from '../../../provider/providerDetails';
+import { ProviderDetailsDialog } from '../../../provider/provider-details-dialog/provider-details-dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatOptionModule } from '@angular/material/core';
+
 
 @Component({
   selector: 'app-ccm-work-queue',
@@ -24,7 +30,10 @@ import { CamundaService } from '../../../../../utils/camunda.service';
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
-    MatRadioModule
+    MatRadioModule,
+    MatDialogModule,
+    MatCardModule,
+    MatOptionModule
   ],
   templateUrl: './ccm-work-queue.html',
   styleUrl: './ccm-work-queue.css',
@@ -34,7 +43,8 @@ export class CcmWorkQueue {
   constructor(
     public dialogRef: MatDialogRef<CcmWorkQueue>,
     @Inject(MAT_DIALOG_DATA) public data: CcmWorkDTO.ReadonlyPopupData,
-    private camundaService: CamundaService
+    private camundaService: CamundaService,
+    public dialog: MatDialog,
   ) { }
 
   close() {
@@ -47,6 +57,9 @@ export class CcmWorkQueue {
   isExternalPending: boolean = false;    // Checkbox
 
   referToTeam: string | null = null;     // Dropdown selected value
+  providers = providers;
+ 
+  providerCode: string = '';
 
   // Dropdown list
   teamList = [
@@ -72,7 +85,16 @@ export class CcmWorkQueue {
 
   return `${yyyy}-${mm}-${dd}`;
 }
-
+openProviderDialog() {
+ 
+    const providerData = this.providers.find(p => p.code === this.providerCode)?.details;
+    if(!providerData) return;
+    this.dialog.open(ProviderDetailsDialog, {
+      width: '1000px',
+      maxHeight: '90vh',
+      data: providerData
+    });
+  }
   onSubmit() {
 
     if(this.actionMode === "approval"){

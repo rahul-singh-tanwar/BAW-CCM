@@ -1,0 +1,38 @@
+<table mat-table [dataSource]="providers" class="mat-elevation-z8">
+ 
+  <!-- Provider Name -->
+  <ng-container matColumnDef="providerName">
+    <th mat-header-cell *matHeaderCellDef> Provider Name </th>
+    <td mat-cell *matCellDef="let row" (click)="openDetails(row)">
+      {{ row.providerName }}
+    </td>
+  </ng-container>
+ 
+  <!-- Code -->
+  <ng-container matColumnDef="code">
+    <th mat-header-cell *matHeaderCellDef> Code </th>
+    <td mat-cell *matCellDef="let row">{{ row.code }}</td>
+  </ng-container>
+ 
+  <!-- Address -->
+  <ng-container matColumnDef="address">
+    <th mat-header-cell *matHeaderCellDef> Address </th>
+    <td mat-cell *matCellDef="let row">{{ row.address }}</td>
+  </ng-container>
+ 
+  <!-- Network Status -->
+  <ng-container matColumnDef="networkStatus">
+    <th mat-header-cell *matHeaderCellDef> Network Status </th>
+    <td mat-cell *matCellDef="let row">{{ row.networkStatus }}</td>
+  </ng-container>
+ 
+  <!-- Active Contracts -->
+  <ng-container matColumnDef="activeContracts">
+    <th mat-header-cell *matHeaderCellDef> Active Contracts </th>
+    <td mat-cell *matCellDef="let row">{{ row.activeContracts }}</td>
+  </ng-container>
+ 
+  <tr mat-header-row *matHeaderRowDef="['providerName','code','address','networkStatus','activeContracts']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['providerName','code','address','networkStatus','activeContracts'];"></tr>
+</table>
+ 

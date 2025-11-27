@@ -11,6 +11,7 @@ import { UserTasksComponent } from './pages/prearrangement/user-tasks/user-tasks
 import { Layout } from './layout/layout';
 import { AuthGuard } from '../utils/auth.guard';
 import { CcmWorkQueue } from './pages/prearrangement/ccm-work-queue/ccm-work-queue';
+import { Provider } from './pages/provider/provider';
 
 export const routes: Routes = [
     // { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -41,7 +42,8 @@ export const routes: Routes = [
         { path: 'prearrangement/form', component: PreArrangementForm },
         { path: 'iframe', component: IframeView },
         { path: 'user-tasks', component: UserTasksComponent },
-        {path: 'ccm-work-queue', component: CcmWorkQueue }
+        {path: 'ccm-work-queue', component: CcmWorkQueue },
+        { path: 'provider', component: Provider }
       ]
     },
 

@@ -1,0 +1,133 @@
+:host {
+  display: block;
+  max-height: 90vh;
+}
+ 
+/* Dialog Container */
+::ng-deep .mat-mdc-dialog-container {
+  overflow: hidden !important;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(25,118,210,0.10) !important;
+}
+ 
+/* Header */
+h2[mat-dialog-title] {
+  background-color: #1976d2;
+  color: #fff;
+  padding: 12px 20px;
+  margin: 0;
+  border-bottom: 2px solid #1565c0;
+  font-weight: 700;
+  font-size: 20px;
+}
+ 
+/* Content */
+.mat-dialog-content {
+  padding: 16px 20px;
+  background: #fff;
+  overflow-y: auto;
+  max-height: 40vh;
+}
+ 
+/* Tabs */
+.tabs-container {
+  margin-top: 12px;
+}
+ 
+::ng-deep .mat-mdc-tab-labels {
+  border-bottom: 1px solid #e0e0e0;
+}
+ 
+::ng-deep .mat-mdc-tab-label {
+  font-weight: 600;
+  color: #1976d2;
+}
+ 
+::ng-deep .mat-mdc-tab-body-wrapper {
+  padding: 14px;
+}
+ 
+/* Table Wrapper */
+.table-wrapper {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  margin-bottom: 12px;
+ 
+}
+ 
+/* Table */
+.inner-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+ 
+.inner-table th,
+.inner-table td {
+text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+ 
+.inner-table th {
+  background: #e3f2fd;
+  color: #1976d2;
+  font-weight: 700;
+}
+ 
+.inner-table tbody tr:hover {
+  background-color: #f6f9ff;
+}
+ 
+/* Status badges */
+.status-badge {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+ 
+.status-badge.active {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+ 
+.status-badge.expiring-soon {
+  background: #fff3e0;
+  color: #ef6c00;
+  border: 1px solid #ffe0b2;
+}
+ 
+.status-badge.terminated {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+ 
+.status-badge.visiting {
+  background: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #bbdefb;
+}
+ 
+/* Actions */
+.mat-dialog-actions {
+  padding: 10px 20px;
+  background: #f3f6fb;
+  border-top: 1px solid #e0e0e0;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+ 
+button[mat-stroked-button] {
+  height: 32px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+ 

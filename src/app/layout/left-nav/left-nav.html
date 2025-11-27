@@ -35,6 +35,13 @@
       <span class="nav-text">CCM Work Queue</span>
     </a>
 
+    <a class="nav-item" *ngIf="auth.canAccess({ users: ['medstaff1', 'medstaff2']})" [class.active]="isActive('/provider')" (click)="navigateTo('/provider')">
+      <div class="nav-icon">
+        <mat-icon>local_hospital</mat-icon>
+      </div>
+      <span class="nav-text">Provider</span>
+    </a>
+
     <a class="nav-item" *ngIf="auth.canAccess({ users: ['HospNetTeamMember1', 'HospNetTeamMember2']})" [class.active]="isActive('/prearrangement')" (click)="navigateTo('/prearrangement')">
       <div class="nav-icon">
         <mat-icon>description</mat-icon>
