@@ -16,6 +16,7 @@ import { providers } from '../../../provider/providerDetails';
 import { ProviderDetailsDialog } from '../../../provider/provider-details-dialog/provider-details-dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatOptionModule } from '@angular/material/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 
 @Component({
@@ -33,7 +34,9 @@ import { MatOptionModule } from '@angular/material/core';
     MatRadioModule,
     MatDialogModule,
     MatCardModule,
-    MatOptionModule
+    MatOptionModule,
+    
+
   ],
   templateUrl: './ccm-work-queue.html',
   styleUrl: './ccm-work-queue.css',
@@ -45,6 +48,7 @@ export class CcmWorkQueue {
     @Inject(MAT_DIALOG_DATA) public data: CcmWorkDTO.ReadonlyPopupData,
     private camundaService: CamundaService,
     public dialog: MatDialog,
+    private sanitizer: DomSanitizer
   ) { }
 
   close() {
@@ -60,6 +64,9 @@ export class CcmWorkQueue {
   providers = providers;
  
   providerCode: string = '';
+  previewUrl: SafeResourceUrl | null = null;
+  rawUrl: string | null = null;
+  zoomLevel: number = 1;
 
   // Dropdown list
   teamList = [
@@ -67,6 +74,38 @@ export class CcmWorkQueue {
     { key: 'DoctorTeam', value: "Doctor's Team" },
     { key: 'ClaimTeam', value: "Claims Team" }
   ];
+
+  previewFile(file: any) {
+    console.log("Previewing file:", file);
+    // Replace this later with actual file URL
+    this.rawUrl = `http://localhost:3000${file.url}`;
+    this.previewUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.rawUrl);
+    this.zoomLevel = 1;
+  }
+ 
+  closePreview() {
+    this.previewUrl = null;
+  }
+ 
+  zoomIn() {
+    this.zoomLevel += 0.2;
+  }
+ 
+  zoomOut() {
+    if (this.zoomLevel > 0.4) this.zoomLevel -= 0.2;
+  }
+ 
+  isImage(): boolean {
+    const isImage = /\.(jpg|jpeg|png|gif)$/i.test(this.rawUrl || '');
+    // console.log("Checking if image for URL:", isImage);
+    return /\.(jpg|jpeg|png|gif)$/i.test(this.rawUrl || '');
+  }
+ 
+  isPdf(): boolean {
+    const isPdf = /\.pdf$/i.test(this.rawUrl || '');
+    console.log("Checking if PDF for URL:", this.rawUrl);
+    return /\.pdf$/i.test(this.rawUrl || '');
+  }
 
   hasAnyUploaded(): boolean {
     console.log("Uploaded Documents:", this.data);

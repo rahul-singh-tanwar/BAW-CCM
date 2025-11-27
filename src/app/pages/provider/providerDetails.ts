@@ -9,7 +9,7 @@ export const providers = [
         contracts: [
           {
             id: 'C-001',
-            company: 'Allianz Life (AZAY)',
+            company: 'Allianz Ayudhya',
             productLine: 'IPD / OPD',
             effectiveDate: '2024-01-01',
             expiryDate: '2026-01-01',
@@ -17,7 +17,7 @@ export const providers = [
           },
           {
             id: 'C-002',
-            company: 'Allianz General (AAGI)',
+            company: 'Allianz Ayudhya General Insurance',
             productLine: 'A&H',
             effectiveDate: '2022-06-01',
             expiryDate: '2026-06-01',
@@ -57,7 +57,7 @@ export const providers = [
         contracts: [    
           {
             id: 'C-010',
-            company: 'Allianz Life (AZAY)',
+            company: 'Allianz Ayudhya',
             productLine: 'IPD',
             effectiveDate: '2023-03-01',
             expiryDate: '2025-03-01',
@@ -117,7 +117,7 @@ export const providers = [
         contracts: [
           {
             id: 'C-008',  
-            company: 'Allianz Life (AZAY)',
+            company: 'Allianz Ayudhya',
             productLine: 'IPD / OPD',
             effectiveDate: '2022-02-01',  
             expiryDate: '2025-02-01',
@@ -125,7 +125,7 @@ export const providers = [
           },
           {
             id: 'C-009',  
-            company: 'Allianz General (AAGI)',
+            company: 'Allianz Ayudhya General Insurance',
 
             productLine: 'A&H',
             effectiveDate: '2021-08-01',
@@ -134,7 +134,7 @@ export const providers = [
           },
           {
             id: 'C-010',
-            company: 'Allianz Life (AZAY)',
+            company: 'Allianz Ayudhya',
             productLine: 'Maternity',
             effectiveDate: '2023-04-01',
             expiryDate: '2026-04-01',

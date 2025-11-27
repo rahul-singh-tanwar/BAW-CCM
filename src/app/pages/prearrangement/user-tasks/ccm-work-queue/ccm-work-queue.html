@@ -149,7 +149,7 @@
   
  
   <!-- === Uploaded Documents === -->
-  <section class="section">
+  <!-- <section class="section">
     <h3>Uploaded Documents</h3>
     <div *ngIf="hasAnyUploaded(); else noUploadFiles">
       <div class="upload-group" *ngIf="data.uploadedDocuments?.formFiles?.items?.length">
@@ -176,7 +176,75 @@
     <ng-template #noUploadFiles>
       <p class="muted">No documents uploaded.</p>
     </ng-template>
-  </section>
+  </section> -->
+
+  <!-- === Uploaded Documents === -->
+<section class="section">
+  <h3>Uploaded Documents</h3>
+ 
+  <div *ngIf="hasAnyUploaded(); else noUploadFiles" class="uploads-split">
+    <!-- LEFT: Links -->
+    <div class="uploads-list">
+      <div class="upload-group" *ngIf="data.uploadedDocuments?.formFiles?.items?.length">
+        <h4>Form Files</h4>
+        <ul>
+          <li *ngFor="let f of data.uploadedDocuments?.formFiles?.items">
+            <span (click)="previewFile(f)" class="file-link">{{ f.originalName }}</span>
+          </li>
+        </ul>
+      </div>
+ 
+      <div class="upload-group" *ngIf="data.uploadedDocuments?.labFiles?.items?.length">
+        <h4>Lab Files</h4>
+        <ul>
+          <li *ngFor="let f of data.uploadedDocuments?.labFiles?.items">
+            <span (click)="previewFile(f)" class="file-link">{{ f.originalName }}</span>
+          </li>
+        </ul>
+      </div>
+ 
+      <div class="upload-group" *ngIf="data.uploadedDocuments?.otherFiles?.items?.length">
+        <h4>Other Files</h4>
+        <ul>
+          <li *ngFor="let f of data.uploadedDocuments?.otherFiles?.items">
+            <span (click)="previewFile(f)" class="file-link">{{ f.originalName }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+ 
+    <!-- RIGHT: Preview -->
+    <div class="preview-container">
+      <div *ngIf="previewUrl; else noPreview">
+        <div class="preview-header">
+          <strong>Preview:</strong>
+          <button mat-button *ngIf="isImage()" (click)="zoomIn()">Zoom +</button>
+          <button mat-button *ngIf="isImage()" (click)="zoomOut()">Zoom -</button>
+          <button mat-button color="warn" (click)="closePreview()">Close</button>
+        </div>
+ 
+        <div class="preview-body">
+          <img *ngIf="isImage()"
+               [src]="previewUrl"
+               [style.transform]="'scale(' + zoomLevel + ')'"
+               class="preview-image" />
+          <iframe *ngIf="isPdf()"
+                  [src]="previewUrl"
+                  class="preview-pdf"
+                  frameborder="0">
+          </iframe>
+        </div>
+      </div>
+      <ng-template #noPreview>
+        <p class="muted">Select a file to preview.</p>
+      </ng-template>
+    </div>
+  </div>
+ 
+  <ng-template #noUploadFiles>
+    <p class="muted">No documents uploaded.</p>
+  </ng-template>
+</section>
 
   <!-- === Customer & Visit Info === -->
   <section class="section two-col">

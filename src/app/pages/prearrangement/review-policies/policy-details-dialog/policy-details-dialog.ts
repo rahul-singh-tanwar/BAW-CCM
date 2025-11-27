@@ -29,7 +29,7 @@ import { MatOptionModule } from '@angular/material/core';
 })
 export class PolicyDetailsDialog {
 
-  physicianLicense: string = '';
+  physicianLicense: string = 'PHYS-123456';
   simbAmount: number | null = null;
   taskname = 'Upload Documents';
   userTaskKey = '';
